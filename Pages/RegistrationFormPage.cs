@@ -19,6 +19,14 @@ public class RegistrationFormPage : BasePage
 
     public WebElement modalSubjects => Find(RegistrationFormPageLocators.modalSubjects_XPath1);
 
+    public WebElement modalHobbies => Find(RegistrationFormPageLocators.modalHobbies_XPath1);
+
+    public WebElement modalImage => Find(RegistrationFormPageLocators.modalPicture_XPath1);
+
+    public WebElement modalAddress => Find(ElementLocators.TC01_VerifyStudentRegistration.modalAddress_XPath1);
+
+    public WebElement modalStateAndCity => Find(ElementLocators.TC01_VerifyStudentRegistration.modalStateAndCity_XPath1);
+
     public WebElement FirstName => Find(RegistrationFormPageLocators.FirstName_Id);
 
     public WebElement LastName => Find(RegistrationFormPageLocators.LastName_Id);
@@ -143,7 +151,10 @@ public class RegistrationFormPage : BasePage
         }
     }
 
-    public void EnterAddress(string address) => Address.Type(address);
+    public void EnterAddress(string address)
+    {
+        Address.Type(address);
+    }
 
     public void SelectState(string state)
     {
@@ -160,5 +171,40 @@ public class RegistrationFormPage : BasePage
     }
 
     public void ClickSubmit() => Submit.Click();
+
+
+
+    public bool IsModalDisplayCorrectInfo(
+        string firstName,
+        string lastName,
+        string email,
+        string gender,
+        string mobile,
+        int dobDay,
+        int dobMonth,
+        int dobYear,
+        string imageName,
+        string subjects,
+        string hobbies,
+        string address,
+        string state,
+        string city
+        )
+    {
+        var fullName = firstName + " " + lastName;
+
+        return fullName == modalName.Text &&
+              email == modalEmail.Text &&
+              gender == modalGender.Text &&
+              mobile == modalMobile.Text &&
+              modalDob.Text.Contains(dobYear.ToString()) &&
+              subjects == modalSubjects.Text &&
+              hobbies == modalHobbies.Text &&
+              imageName == modalImage.Text &&
+              address == modalAddress.Text &&
+              modalStateAndCity.Text.Contains(state) &&
+              modalStateAndCity.Text.Contains(city);
+
+    }
 
 }
