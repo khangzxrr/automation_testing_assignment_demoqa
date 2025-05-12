@@ -7,75 +7,158 @@ public class RegistrationFormPage : BasePage
 
     private readonly string url = "https://demoqa.com/automation-practice-form";
 
+    public WebElement modalName => Find(RegistrationFormPageLocators.modalName_XPath1);
+
+    public WebElement modalEmail => Find(RegistrationFormPageLocators.modalEmail_XPath1);
+
+    public WebElement modalGender => Find(RegistrationFormPageLocators.modalGender_XPath1);
+
+    public WebElement modalMobile => Find(RegistrationFormPageLocators.modalMobile_XPath1);
+
+    public WebElement modalDob => Find(RegistrationFormPageLocators.modalDob_XPath1);
+
+    public WebElement modalSubjects => Find(RegistrationFormPageLocators.modalSubjects_XPath1);
+
+    public WebElement FirstName => Find(RegistrationFormPageLocators.FirstName_Id);
+
+    public WebElement LastName => Find(RegistrationFormPageLocators.LastName_Id);
+
+    public WebElement Email => Find(RegistrationFormPageLocators.Email_Id);
+
+    public WebElement GenderMale => Find(RegistrationFormPageLocators.GenderMale_XPath2);
+    public WebElement GenderFeMale => Find(RegistrationFormPageLocators.GenderFemale_XPath1);
+    public WebElement GenderOther => Find(RegistrationFormPageLocators.GenderOther_XPath1);
+
+    public WebElement Mobile => Find(RegistrationFormPageLocators.Mobile_XPath2);
+
+    public WebElement DobInput => Find(RegistrationFormPageLocators.DOB_Id);
+    public WebElement DobMonthSelect => Find(RegistrationFormPageLocators.DOB_Month_Select_XPath1);
+    public WebElement DobYearSelect => Find(RegistrationFormPageLocators.DOB_Year_Select_XPath1);
+    public WebElement DobDaySelect(int day) => Find(RegistrationFormPageLocators.DOB_Day_By_Value_XPath1(day));
+
+    public WebElement SubjectInput => Find(RegistrationFormPageLocators.Subjects_XPath1);
+    public WebElement SubjectDropdownItem(string subject) => Find(RegistrationFormPageLocators.Subject_DropDown_Item_XPath1(subject));
+
+    public WebElement Image => Find(RegistrationFormPageLocators.UploadPicture_XPath1);
+
+    public WebElement SportHobby => Find(RegistrationFormPageLocators.HobbySports_XPath1);
+    public WebElement ReadingHobby => Find(RegistrationFormPageLocators.HobbyReading_XPath1);
+    public WebElement MusicHobby => Find(RegistrationFormPageLocators.HobbyMusic_XPath1);
+
+    public WebElement Address => Find(RegistrationFormPageLocators.Address_XPath1);
+
+    public WebElement StateInput => Find(RegistrationFormPageLocators.State_Id);
+    public WebElement StateDropDownItem(string state) => Find(RegistrationFormPageLocators.State_Selectable_XPath1(state));
+
+    public WebElement CityInput => Find(RegistrationFormPageLocators.City_Id);
+    public WebElement CityDropDownItem(string city) => Find(RegistrationFormPageLocators.City_Selectable_XPath1(city));
+
+    public WebElement Submit => Find(RegistrationFormPageLocators.Submit_XPath1);
+
+
     public void NavigateTo() => driver.Navigate().GoToUrl(url);
 
-    public void EnterFirstName(string firstName) =>
-        Type(RegistrationFormPageLocators.FirstName_Id, firstName);
+    public string GetName() => GetText(RegistrationFormPageLocators.modalName_XPath1);
 
-    public void EnterLastName(string lastName) =>
-        Type(RegistrationFormPageLocators.LastName_Id, lastName);
+    public string GetEmail() => GetText(RegistrationFormPageLocators.modalEmail_XPath1);
 
-    public void EnterEmail(string email) => Type(RegistrationFormPageLocators.Email_Id, email);
+    public string GetGender() => GetText(RegistrationFormPageLocators.modalGender_XPath1);
+
+    public string GetMobile() => GetText(RegistrationFormPageLocators.modalMobile_XPath1);
+
+    public string GetDoB() => GetText(RegistrationFormPageLocators.modalDob_XPath1);
+
+    public string GetSubjects() => GetText(RegistrationFormPageLocators.modalSubjects_XPath1);
+
+
+
+    public void EnterFirstName(string firstName) => FirstName.Type(firstName);
+
+    public void EnterLastName(string lastName) => LastName.Type(lastName);
+
+    public void EnterEmail(string email) => Email.Type(email);
 
     public void SelectGender(string gender)
     {
-        By genderLocator = gender.ToLower().Trim() switch
+        switch (gender)
         {
-            "Male" => RegistrationFormPageLocators.GenderMale_XPath2,
-            "Female" => RegistrationFormPageLocators.GenderFemale_XPath1,
-            "Other" => RegistrationFormPageLocators.GenderOther_XPath1,
-            _ => throw new InvalidSelectOptionException("Invalid gender"),
-        };
-
-        Click(genderLocator);
-    }
-
-    public void EnterMobile(string mobile) =>
-        Type(RegistrationFormPageLocators.Mobile_XPath2, mobile);
-
-    public void EnterDoB(int day, int month, int year)
-    {
-        Click(RegistrationFormPageLocators.DOB_Id);
-
-        SelectByValue(RegistrationFormPageLocators.DOB_Month_Select_XPath1, month.ToString());
-
-        SelectByValue(RegistrationFormPageLocators.DOB_Year_Select_XPath1, year.ToString());
-
-        Click(RegistrationFormPageLocators.DOB_Day_By_Value_XPath1(day));
-    }
-
-    public void EnterSubjects(string subjects) =>
-        Type(RegistrationFormPageLocators.Subjects_XPath1, subjects);
-
-    public void EnterImage(string imagePath) =>
-        Type(RegistrationFormPageLocators.UploadPicture_XPath1, imagePath);
-
-    public void SelectHobbies(string hobbies)
-    {
-        if (hobbies.ToLower().Contains("Sports"))
-        {
-            Click(RegistrationFormPageLocators.HobbySports_XPath2);
+            case "Male":
+                GenderMale.Click();
+                break;
+            case "Female":
+                GenderFeMale.Click();
+                break;
+            case "Other":
+                GenderOther.Click();
+                break;
+            default:
+                throw new InvalidSelectOptionException("Invalid gender");
         }
     }
 
-    public void EnterAddress(string address) =>
-        Type(RegistrationFormPageLocators.Address_XPath1, address);
+    public void EnterMobile(string mobile) => Mobile.Type(mobile);
+
+    public void EnterDoB(int day, int month, int year)
+    {
+        DobInput.Click();
+
+        DobMonthSelect.SelectByValue(month.ToString());
+
+        DobYearSelect.SelectByValue(year.ToString());
+
+        DobDaySelect(day).Click();
+    }
+
+    public void EnterSubjects(string subjects)
+    {
+        foreach (var subject in subjects.Split(' '))
+        {
+            EnterSingleSubject(subject.Trim());
+        }
+    }
+
+    public void EnterSingleSubject(string subject)
+    {
+        SubjectInput.Type(subject);
+        SubjectDropdownItem(subject).Click();
+    }
+
+    public void EnterImage(string imagePath) => Image.Type(imagePath);
+
+    public void SelectHobbies(string hobbies)
+    {
+        if (hobbies.ToLower().Contains("sports"))
+        {
+            SportHobby.Click();
+        }
+
+        if (hobbies.ToLower().Contains("reading"))
+        {
+            ReadingHobby.Click();
+        }
+
+        if (hobbies.ToLower().Contains("music"))
+        {
+            MusicHobby.Click();
+        }
+    }
+
+    public void EnterAddress(string address) => Address.Type(address);
 
     public void SelectState(string state)
     {
-        Click(RegistrationFormPageLocators.State_Id);
+        StateInput.Click();
 
-        var stateLocator = RegistrationFormPageLocators.State_Selectable_XPath1(state);
-        Click(stateLocator);
+        StateDropDownItem(state).Click();
     }
 
     public void SelectCity(string city)
     {
-        Click(RegistrationFormPageLocators.City_Id);
+        CityInput.Click();
 
-        var ciyLocator = RegistrationFormPageLocators.City_Selectable_XPath1(city);
-        Click(ciyLocator);
+        CityDropDownItem(city).Click();
     }
 
-    public void ClickSubmit() => Click(RegistrationFormPageLocators.Submit_XPath1);
+    public void ClickSubmit() => Submit.Click();
+
 }
