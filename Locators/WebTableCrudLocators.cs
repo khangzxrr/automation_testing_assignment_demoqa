@@ -1,6 +1,6 @@
 using OpenQA.Selenium;
 
-public static class WebTablesCRUDLocators
+public static class WebTableCrudPageLocators
 {
     // Button: Add New Record
     public static By AddButton_Id = By.Id("addNewRecordButton");
