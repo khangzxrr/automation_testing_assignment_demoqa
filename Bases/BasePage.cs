@@ -1,16 +1,19 @@
 using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 
 public abstract class BasePage
 {
     protected IWebDriver driver;
     protected WebDriverWait wait;
+    protected Actions actions;
 
     protected BasePage(IWebDriver driver)
     {
         this.driver = driver;
 
         wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+        actions = new Actions(driver);
     }
 
     protected IWebElement WaitUntilClickable(By locator, int timeoutInSeconds = 15)
@@ -42,6 +45,13 @@ public abstract class BasePage
     public WebElement Find(By locator)
     {
         var element = WaitUntilExist(locator);
+
+        return new WebElement(driver, element, wait, locator);
+    }
+
+    public WebElement FindWithoutWaiting(By locator)
+    {
+        var element = driver.FindElement(locator);
 
         return new WebElement(driver, element, wait, locator);
     }

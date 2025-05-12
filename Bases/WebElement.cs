@@ -52,6 +52,15 @@ public class WebElement
 
     public string GetClass() => source.GetAttribute("class");
 
+    public string GetCssValue(string css) => source.GetCssValue(css);
+
     public string Text => source.Text;
+
+    public bool Enabled => source.Enabled;
+
+    public bool Displayed => source.Displayed;
+
+
+
 }
 
