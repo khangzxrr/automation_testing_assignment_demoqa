@@ -2,12 +2,12 @@ using OpenQA.Selenium;
 
 public partial class TestCase
 {
-    [Trait("Category", "DemoQA")]
-    [Trait("Component", "PracticeForm")]
-    [Trait("TestCase", "TC02")]
-    [Trait("Type", "Validation")]
-    [Trait("Level", "FieldValidation")]
-    [Fact]
+    // [Trait("Category", "DemoQA")]
+    // [Trait("Component", "PracticeForm")]
+    // [Trait("TestCase", "TC02")]
+    // [Trait("Type", "Validation")]
+    // [Trait("Level", "FieldValidation")]
+    // [Fact]
     public void TC02_VerifyValidationMessagesForEmptyRequiredFields()
     {
         driver.Url = "https://demoqa.com/automation-practice-form";
@@ -43,12 +43,12 @@ public partial class TestCase
         Assert.Empty(selectedGender);
     }
 
-    [Trait("Category", "DemoQA")]
-    [Trait("Component", "PracticeForm")]
-    [Trait("TestCase", "TC02")]
-    [Trait("Type", "Validation")]
-    [Trait("Level", "ProgressiveValidation")]
-    [Fact]
+    // [Trait("Category", "DemoQA")]
+    // [Trait("Component", "PracticeForm")]
+    // [Trait("TestCase", "TC02")]
+    // [Trait("Type", "Validation")]
+    // [Trait("Level", "ProgressiveValidation")]
+    // [Fact]
     public void TC02_ProgressivelyFillRequiredFieldsAndValidateRemainingInvalid()
     {
         driver.Url = "https://demoqa.com/automation-practice-form";

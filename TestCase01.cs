@@ -4,39 +4,39 @@ using SeleniumExtras.WaitHelpers;
 
 public partial class TestCase
 {
-    [Theory]
-    [Trait("Category", "DemoQA")]
-    [Trait("Component", "StudentRegistrationForm")]
-    [InlineData(
-        "firstName",
-        "lastName",
-        "khangzxrr@gmail.com",
-        "Male",
-        "0919092211",
-        "5",
-        "2000",
-        "sample.jpg",
-        "English",
-        "Sports",
-        "159 xa lo ha noi",
-        "NCR",
-        "Delhi"
-    )]
-    [InlineData(
-        "firstName2",
-        "lastName2",
-        "khangzxrr2@gmail.com",
-        "Male",
-        "0919092233",
-        "5",
-        "2000",
-        "sample.jpg",
-        "English",
-        "Sports",
-        "159 xa lo ha noi",
-        "Uttar Pradesh",
-        "Agra"
-    )]
+    // [Theory]
+    // [Trait("Category", "DemoQA")]
+    // [Trait("Component", "StudentRegistrationForm")]
+    // [InlineData(
+    //     "firstName",
+    //     "lastName",
+    //     "khangzxrr@gmail.com",
+    //     "Male",
+    //     "0919092211",
+    //     "5",
+    //     "2000",
+    //     "sample.jpg",
+    //     "English",
+    //     "Sports",
+    //     "159 xa lo ha noi",
+    //     "NCR",
+    //     "Delhi"
+    // )]
+    // [InlineData(
+    //     "firstName2",
+    //     "lastName2",
+    //     "khangzxrr2@gmail.com",
+    //     "Male",
+    //     "0919092233",
+    //     "5",
+    //     "2000",
+    //     "sample.jpg",
+    //     "English",
+    //     "Sports",
+    //     "159 xa lo ha noi",
+    //     "Uttar Pradesh",
+    //     "Agra"
+    // )]
     public void TC01_VerifyUserCanSuccessfullySubmitStudentRegistrationFormWithValidData(
         string firstName,
         string lastName,

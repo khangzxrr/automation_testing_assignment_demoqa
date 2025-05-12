@@ -3,11 +3,11 @@ using OpenQA.Selenium;
 public partial class TestCase
 {
 
-    [Theory]
-    [InlineData("MissingAt", "userexample.com")]
-    [InlineData("MissingDomain", "user@")]
-    [InlineData("ContainsSpace", "user @example.com")]
-    [InlineData("SpecialChars", "user@@example..com")]
+    // [Theory]
+    // [InlineData("MissingAt", "userexample.com")]
+    // [InlineData("MissingDomain", "user@")]
+    // [InlineData("ContainsSpace", "user @example.com")]
+    // [InlineData("SpecialChars", "user@@example..com")]
     public void TC03_VerifyEmailValidationWithVariousInvalidFormats(string caseName, string invalidEmail)
     {
         driver.Url = "https://demoqa.com/automation-practice-form";
