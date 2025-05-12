@@ -37,6 +37,13 @@ public class WebElement
         selectElement.SelectByValue(value);
     }
 
+    public void SelectByText(string text)
+    {
+        ScrollIntoView();
+        SelectElement selectElement = new SelectElement(source);
+        selectElement.SelectByText(text);
+    }
+
     public void ScrollIntoViewAndClick()
     {
         ScrollIntoView();

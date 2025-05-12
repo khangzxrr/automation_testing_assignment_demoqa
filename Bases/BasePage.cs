@@ -87,5 +87,14 @@ public abstract class BasePage
         selectElement.SelectByValue(value);
     }
 
+    public void SelectByText(By locator, string text)
+    {
+
+        var element = WaitUntilVisible(locator);
+
+        SelectElement selectElement = new SelectElement(element);
+        selectElement.SelectByValue(text);
+    }
+
     public string GetText(By locator) => WaitUntilVisible(locator).Text;
 }
