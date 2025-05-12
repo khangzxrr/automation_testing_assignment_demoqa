@@ -29,6 +29,14 @@ public abstract class BasePage
         );
     }
 
+    public WebElement Find(By locator)
+    {
+        var element = driver.FindElement(locator);
+
+        return new WebElement(element, wait);
+    }
+
+
     public void Click(By locator) => WaitUntilClickable(locator).Click();
 
     public void Type(By locator, string text)
@@ -47,8 +55,8 @@ public abstract class BasePage
     {
         var element = WaitUntilVisible(locator);
 
-        SelectElement monthSelect = new SelectElement(element);
-        monthSelect.SelectByValue(value);
+        SelectElement selectElement = new SelectElement(element);
+        selectElement.SelectByValue(value);
     }
 
     public string GetText(By locator) => WaitUntilVisible(locator).Text;
