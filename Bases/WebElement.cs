@@ -60,6 +60,8 @@ public class WebElement
 
     public bool Displayed => source.Displayed;
 
+    public string GetAttribute(string property) => source.GetAttribute(property);
+
 
 
 }
