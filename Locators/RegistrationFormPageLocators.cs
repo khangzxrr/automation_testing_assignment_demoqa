@@ -86,8 +86,8 @@ public static class RegistrationFormPageLocators
     );
 
     // Element: English subject dropdown element
-    public static By English_Subject_XPath1 = By.XPath(
-        "//div[@id='subjectsContainer']//div[contains(@id, 'react-select-2') and text() = 'English']"
+    public static By Subject_DropDown_Item_XPath1(string subject) => By.XPath(
+        $"//div[@id='subjectsContainer']//div[contains(@id, 'react-select-2') and text() = '{subject}']"
     );
 
     // Element: Hobbies checkboxes
@@ -98,8 +98,9 @@ public static class RegistrationFormPageLocators
     public static By HobbySports_CSS1 = By.CssSelector("input#hobbies-checkbox-1");
     public static By HobbySports_CSS2 = By.CssSelector("label[for='hobbies-checkbox-1']");
 
-    public static By HobbySports_XPath1 = By.XPath("//input[@id='hobbies-checkbox-1']");
-    public static By HobbySports_XPath2 = By.XPath("//label[@for='hobbies-checkbox-1']");
+    public static By HobbySports_XPath1 = By.XPath("//label[@for='hobbies-checkbox-1']");
+    public static By HobbyReading_XPath1 = By.XPath("//label[@for='hobbies-checkbox-2']");
+    public static By HobbyMusic_XPath1 = By.XPath("//label[@for='hobbies-checkbox-3']");
 
     // Element: Picture upload
     public static By UploadPicture_Id = By.Id("uploadPicture");
