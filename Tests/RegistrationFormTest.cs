@@ -9,8 +9,9 @@ public class RegistrationFormTest : BaseTest
         "khangzxrr@gmail.com",
         "Male",
         "0919092211",
-        "5",
-        "2000",
+          21,
+          6,
+        2000,
         "sample.jpg",
         "English",
         "Sports",
@@ -24,8 +25,9 @@ public class RegistrationFormTest : BaseTest
         "khangzxrr2@gmail.com",
         "Male",
         "0919092233",
-        "5",
-        "2000",
+        21,
+        5,
+       2000,
         "sample.jpg",
         "English",
         "Sports",
@@ -39,8 +41,9 @@ public class RegistrationFormTest : BaseTest
         string email,
         string gender,
         string mobile,
-        string dobMonth,
-        string dobYear,
+        int dobDay,
+        int dobMonth,
+        int dobYear,
         string imageName,
         string subjects,
         string hobbies,
@@ -51,16 +54,55 @@ public class RegistrationFormTest : BaseTest
     {
         string imagePath = Directory.GetCurrentDirectory() + "/" + imageName;
 
-        // Assert.Equal(firstName + " " + lastName, modalName);
-        // Assert.Equal(email, modalEmail);
-        // Assert.Equal(gender, modalGender);
-        // Assert.Equal(mobile, modalMobile);
-        // Assert.Contains(dobYear, modalDob);
-        // Assert.Equal(subjects, modalSubjects);
-        // Assert.Equal(hobbies, modalHobbies);
-        // Assert.Equal(imageName, modalPicture);
-        // Assert.Equal(address, modalAddress);
-        // Assert.Contains(state, modalStateAndCity);
-        // Assert.Contains(city, modalStateAndCity);
+        var page = new RegistrationFormPage(driver);
+
+        page.NavigateTo();
+
+        page.EnterFirstName(firstName);
+
+        page.EnterLastName(lastName);
+
+        page.EnterEmail(email);
+
+        page.SelectGender(gender);
+
+        page.EnterMobile(mobile);
+
+        page.EnterDoB(dobDay, dobMonth, dobYear);
+
+        page.EnterSubjects(subjects);
+
+        page.SelectHobbies(hobbies);
+
+        page.EnterImage(imagePath);
+
+        page.EnterAddress(address);
+
+        page.SelectState(state);
+
+        page.SelectCity(city);
+
+        page.ClickSubmit();
+
+        Assert.True(page.IsModalDisplayCorrectInfo(
+              firstName,
+              lastName,
+              email,
+              gender,
+              mobile,
+              dobDay,
+              dobMonth,
+              dobYear,
+              imageName,
+              subjects,
+              hobbies,
+              address,
+              state,
+              city
+        ));
+
     }
+
+
+
 }
