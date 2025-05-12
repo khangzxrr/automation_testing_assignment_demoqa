@@ -12,7 +12,7 @@ public abstract class BaseTest : IDisposable
             PageLoadStrategy = PageLoadStrategy.Eager,
             PageLoadTimeout = TimeSpan.FromSeconds(60),
         };
-        options.AddArgument("--headless");
+        // options.AddArgument("--headless");
 
         var profile = new FirefoxProfile();
 

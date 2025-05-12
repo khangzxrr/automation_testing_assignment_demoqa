@@ -29,11 +29,21 @@ public abstract class BasePage
         );
     }
 
+    protected IWebElement WaitUntilExist(By locator, int timeoutInSeconds = 15)
+    {
+        var localWait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
+        return localWait.Until(
+            SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(locator)
+        );
+    }
+
+
+
     public WebElement Find(By locator)
     {
-        var element = driver.FindElement(locator);
+        var element = WaitUntilExist(locator);
 
-        return new WebElement(element, wait);
+        return new WebElement(driver, element, wait, locator);
     }
 
 
