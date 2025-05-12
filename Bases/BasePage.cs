@@ -49,6 +49,14 @@ public abstract class BasePage
         return new WebElement(driver, element, wait, locator);
     }
 
+    public List<WebElement> Finds(By locator)
+    {
+        var elements = driver.FindElements(locator);
+
+        return elements.Select(e => new WebElement(driver, e, wait, locator)).ToList();
+    }
+
+
     public WebElement FindWithoutWaiting(By locator)
     {
         var element = driver.FindElement(locator);
