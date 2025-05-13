@@ -2,10 +2,8 @@ using OpenQA.Selenium;
 
 public class AccordionPage : BasePage
 {
-    public AccordionPage(IWebDriver driver) : base(driver)
-    {
-    }
-
+    public AccordionPage(IWebDriver driver)
+        : base(driver) { }
 
     private readonly string url = "https://demoqa.com/accordian";
 
@@ -19,10 +17,16 @@ public class AccordionPage : BasePage
     public WebElement Section3Content => Find(AccordionPageLocators.Section3Content_Id);
 
     public void ExpandSection1() => Section1Heading.Click();
+
     public void ExpandSection2() => Section2Heading.Click();
+
     public void ExpandSection3() => Section3Heading.Click();
 
-    public void waitUntilExpaned(WebElement sectionContent) => wait.Until(d => IsSectionContentVisible(sectionContent));
+    public void waitUntilExpaned(WebElement sectionContent)
+    {
+        wait.Until(d => IsSectionContentVisible(sectionContent));
+        Thread.Sleep(500);
+    }
 
     public bool IsSectionContentVisible(WebElement sectionContent) =>
         sectionContent.Displayed && GetClientHeight(sectionContent) > 0;
