@@ -32,4 +32,18 @@ public abstract class BaseTest : IDisposable
         driver?.Quit();
         driver?.Dispose();
     }
+
+    protected void PerformTest(Action action)
+    {
+        try
+        {
+            action();
+        }
+        catch (Exception)
+        {
+            ScreenshotHelper.Capture(driver);
+            throw;
+        }
+
+    }
 }
