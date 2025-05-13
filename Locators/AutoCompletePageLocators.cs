@@ -2,7 +2,6 @@ using OpenQA.Selenium;
 
 public static class AutoCompletePageLocators
 {
-    public static By MultipleColorInput_Id = By.Id("autoCompleteMultipleInput");
     public static By SingleColorInput_Id = By.Id("autoCompleteSingleInput");
     public static By MultiColorInput_Id = By.Id("autoCompleteMultipleInput");
 

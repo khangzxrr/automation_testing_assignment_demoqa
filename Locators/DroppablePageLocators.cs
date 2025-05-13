@@ -3,11 +3,7 @@ using OpenQA.Selenium;
 public static class DroppablePageLocators
 {
     // Tab: Simple
-    public static By SimpleTab_Id = By.Id("droppableExample-tab-simple");
-    public static By SimpleTab_CSS1 = By.CssSelector("#droppableExample-tab-simple");
-    public static By SimpleTab_CSS2 = By.CssSelector("a#droppableExample-tab-simple");
     public static By SimpleTab_XPath1 = By.XPath("//a[@id='droppableExample-tab-simple']");
-    public static By SimpleTab_XPath2 = By.XPath("//a[text()='Simple']");
 
     // Tab: Accept
     public static By AcceptTab_Id = By.Id("droppableExample-tab-accept");
@@ -38,30 +34,10 @@ public static class DroppablePageLocators
 
     // Draggable element in Simple tab
     public static By Simple_Draggable_Id = By.Id("draggable");
-    public static By Simple_Draggable_CSS1 = By.CssSelector("#draggable");
-    public static By Simple_Draggable_CSS2 = By.CssSelector("div#draggable");
-    public static By Simple_Draggable_XPath1 = By.XPath("//div[@id='draggable']");
-    public static By Simple_Draggable_XPath2 = By.XPath(
-        "//div[contains(@class,'draggable') and @id='draggable']"
-    );
 
     // Droppable element in Simple tab
     public static By Simple_Droppable_Id = By.Id("droppable");
-    public static By Simple_Droppable_CSS1 = By.CssSelector("#droppable");
-    public static By Simple_Droppable_CSS2 = By.CssSelector("div#droppable");
-    public static By Simple_Droppable_XPath1 = By.XPath(
-        "//div[@id='simpleDropContainer']//div[@id='droppable']"
-    );
-    public static By Simple_Droppable_XPath2 = By.XPath(
-        "//div[@id='simpleDropContainer']//div[contains(@class, 'drop-box ui-droppable')]"
-    );
-
     // Droppable text (for assertion)
-    public static By Droppable_Text_CSS1 = By.CssSelector("#droppable p");
-    public static By Droppable_Text_CSS2 = By.CssSelector("div#droppable > p");
     public static By Droppable_Text_XPath1 = By.XPath("//div[@id='droppable']/p");
-    public static By Droppable_Text_XPath2 = By.XPath(
-        "//p[contains(text(),'Drop here') or contains(text(),'Dropped')]"
-    );
 
 }
