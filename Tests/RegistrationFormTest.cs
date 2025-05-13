@@ -52,54 +52,58 @@ public class RegistrationFormTest : BaseTest
         string city
     )
     {
-        string imagePath = Directory.GetCurrentDirectory() + "/" + imageName;
+        PerformTest(() =>
+        {
+            string imagePath = Directory.GetCurrentDirectory() + "/" + imageName;
 
-        var page = new RegistrationFormPage(driver);
+            var page = new RegistrationFormPage(driver);
 
-        page.NavigateTo();
+            page.NavigateTo();
 
-        page.EnterFirstName(firstName);
+            page.EnterFirstName(firstName);
 
-        page.EnterLastName(lastName);
+            page.EnterLastName(lastName);
 
-        page.EnterEmail(email);
+            page.EnterEmail(email);
 
-        page.SelectGender(gender);
+            page.SelectGender(gender);
 
-        page.EnterMobile(mobile);
+            page.EnterMobile(mobile);
 
-        page.EnterDoB(dobDay, dobMonth, dobYear);
+            page.EnterDoB(dobDay, dobMonth, dobYear);
 
-        page.EnterSubjects(subjects);
+            page.EnterSubjects(subjects);
 
-        page.SelectHobbies(hobbies);
+            page.SelectHobbies(hobbies);
 
-        page.EnterImage(imagePath);
+            page.EnterImage(imagePath);
 
-        page.EnterAddress(address);
+            page.EnterAddress(address);
 
-        page.SelectState(state);
+            page.SelectState(state);
 
-        page.SelectCity(city);
+            page.SelectCity(city);
 
-        page.ClickSubmit();
+            page.ClickSubmit();
 
-        Assert.True(page.IsModalDisplayCorrectInfo(
-              firstName,
-              lastName,
-              email,
-              gender,
-              mobile,
-              dobDay,
-              dobMonth,
-              dobYear,
-              imageName,
-              subjects,
-              hobbies,
-              address,
-              state,
-              city
-        ));
+            Assert.True(page.IsModalDisplayCorrectInfo(
+                  firstName,
+                  lastName,
+                  email,
+                  gender,
+                  mobile,
+                  dobDay,
+                  dobMonth,
+                  dobYear,
+                  imageName,
+                  subjects,
+                  hobbies,
+                  address,
+                  state,
+                  city
+            ));
+
+        });
 
     }
 

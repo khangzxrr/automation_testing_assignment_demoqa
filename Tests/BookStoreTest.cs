@@ -10,21 +10,25 @@ public class BookStoreTest : BaseTest
     [Trait("Level", "EndToEnd")]
     public void TC09_VerifyBookStoreLoginSearchAndAddToCollection()
     {
-        var page = new BookStorePage(driver);
+        PerformTest(() =>
+        {
+            var page = new BookStorePage(driver);
 
-        page.NavigateTo();
+            page.NavigateTo();
 
-        // Step 1: Login
-        page.Login("khangzxrr", "@DucatiV4S@");
+            // Step 1: Login
+            page.Login("khangzxrr", "@DucatiV4S@");
 
-        // Step 2: Search book
-        page.SearchBook("Git Pocket Guide");
+            // Step 2: Search book
+            page.SearchBook("Git Pocket Guide");
 
-        // Step 3: Click book and add to collection
-        page.ClickFirstBook();
-        page.AddBookToCollection();
+            // Step 3: Click book and add to collection
+            page.ClickFirstBook();
+            page.AddBookToCollection();
 
-        // Step 4: Accept alert (if shown)
-        page.AcceptAlertIfPresent();
+            // Step 4: Accept alert (if shown)
+            page.AcceptAlertIfPresent();
+
+        });
     }
 }

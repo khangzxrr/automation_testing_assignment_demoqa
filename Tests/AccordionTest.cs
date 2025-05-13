@@ -9,24 +9,28 @@ public class AccordionTest : BaseTest
     [Trait("Level", "Visibility")]
     public void TC14_VerifyAccordionFunctionality()
     {
-        var page = new AccordionPage(driver);
+        PerformTest(() =>
+        {
+            var page = new AccordionPage(driver);
 
-        page.NavigateTo();
+            page.NavigateTo();
 
-        Assert.True(page.IsSectionContentVisible(page.Section1Content));
+            Assert.True(page.IsSectionContentVisible(page.Section1Content));
 
-        page.ExpandSection2();
-        page.waitUntilExpaned(page.Section2Content);
+            page.ExpandSection2();
+            page.waitUntilExpaned(page.Section2Content);
 
-        Assert.True(page.IsCollapsed(page.Section1Content));
-        Assert.True(page.IsSectionContentVisible(page.Section2Content));
-        Assert.True(page.IsCollapsed(page.Section3Content));
+            Assert.True(page.IsCollapsed(page.Section1Content));
+            Assert.True(page.IsSectionContentVisible(page.Section2Content));
+            Assert.True(page.IsCollapsed(page.Section3Content));
 
-        page.ExpandSection3();
-        page.waitUntilExpaned(page.Section3Content);
+            page.ExpandSection3();
+            page.waitUntilExpaned(page.Section3Content);
 
-        Assert.True(page.IsSectionContentVisible(page.Section3Content));
-        Assert.True(page.IsCollapsed(page.Section1Content));
-        Assert.True(page.IsCollapsed(page.Section2Content));
+            Assert.True(page.IsSectionContentVisible(page.Section3Content));
+            Assert.True(page.IsCollapsed(page.Section1Content));
+            Assert.True(page.IsCollapsed(page.Section2Content));
+
+        });
     }
 }

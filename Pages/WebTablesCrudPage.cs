@@ -54,5 +54,16 @@ public class WebTableCrudPage : BasePage
         PaginationSelect.SelectByValue(pageSize);
     }
 
+    public void AddRecord(string first, string last, string email, string age, string salary, string department)
+    {
+        AddButton.Click();
+        EnterFirstName(first);
+        EnterLastName(last);
+        EnterEmail(email);
+        EnterAge(age);
+        EnterSalary(salary);
+        EnterDepartment(department);
+        SubmitButton.Click();
+    }
 
 }

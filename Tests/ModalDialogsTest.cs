@@ -10,25 +10,29 @@ public class ModelDialogsTest : BaseTest
     [Fact]
     public void TC13_VerifyModalDialogsDisplayAndClose()
     {
-        var page = new ModalDialogsPage(driver);
-        page.NavigateTo();
+        PerformTest(() =>
+        {
+            var page = new ModalDialogsPage(driver);
+            page.NavigateTo();
 
-        // Step 1: Open small modal and close via X
-        page.OpenSmallModal();
-        Assert.True(page.SmallModalCloseX.Displayed);
-        page.CloseSmallModalX();
+            // Step 1: Open small modal and close via X
+            page.OpenSmallModal();
+            Assert.True(page.SmallModalCloseX.Displayed);
+            page.CloseSmallModalX();
 
-        // Step 2: Open small modal and close via button
-        page.OpenSmallModal();
-        Assert.True(page.SmallModalCloseButton.Displayed);
-        page.CloseSmallModalButton();
+            // Step 2: Open small modal and close via button
+            page.OpenSmallModal();
+            Assert.True(page.SmallModalCloseButton.Displayed);
+            page.CloseSmallModalButton();
 
-        // Step 3: Open large modal
-        page.OpenLargeModal();
-        Assert.True(page.IsLargeModalVisible());
+            // Step 3: Open large modal
+            page.OpenLargeModal();
+            Assert.True(page.IsLargeModalVisible());
 
-        // Step 4: Try clicking overlay (should NOT close modal)
-        page.ClickModalOverlay();
-        Assert.True(page.IsLargeModalVisible()); // still open
+            // Step 4: Try clicking overlay (should NOT close modal)
+            page.ClickModalOverlay();
+            Assert.True(page.IsLargeModalVisible()); // still open
+
+        });
     }
 }

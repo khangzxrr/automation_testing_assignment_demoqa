@@ -10,20 +10,24 @@ public class FramesTest : BaseTest
     [Trait("Level", "ContextSwitching")]
     public void TC08_VerifyFrameNavigationAndContent()
     {
-        var page = new FramesPage(driver);
+        PerformTest(() =>
+        {
+            var page = new FramesPage(driver);
 
-        page.NavigateTo();
+            page.NavigateTo();
 
-        page.SwitchToFrame1();
-        var heading1 = page.GetFrameHeadingText();
-        Assert.Contains("This is a sample page", heading1);
+            page.SwitchToFrame1();
+            var heading1 = page.GetFrameHeadingText();
+            Assert.Contains("This is a sample page", heading1);
 
-        page.SwitchToDefaultContent();
+            page.SwitchToDefaultContent();
 
-        page.SwitchToFrame2();
-        var heading2 = page.GetFrameHeadingText();
-        Assert.Contains("This is a sample page", heading2);
+            page.SwitchToFrame2();
+            var heading2 = page.GetFrameHeadingText();
+            Assert.Contains("This is a sample page", heading2);
 
-        Assert.Equal(heading1, heading2);
+            Assert.Equal(heading1, heading2);
+
+        });
     }
 }

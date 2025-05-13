@@ -8,22 +8,26 @@ public class ErrorMessageFormTest : BaseTest
     [Fact]
     public void TC02_VerifyValidationMessagesForEmptyRequiredFields()
     {
-        var page = new RegistrationFormPage(driver);
+        PerformTest(() =>
+        {
+            var page = new RegistrationFormPage(driver);
 
-        page.NavigateTo();
+            page.NavigateTo();
 
-        page.ClickSubmit();
+            page.ClickSubmit();
 
-        Assert.Contains("form-control", page.FirstName.GetClass());
-        Assert.False(page.FirstName.IsValid());
-
-
-        Assert.Contains("form-control", page.LastName.GetClass());
-        Assert.False(page.LastName.IsValid());
+            Assert.Contains("form-control", page.FirstName.GetClass());
+            Assert.False(page.FirstName.IsValid());
 
 
-        Assert.Contains("form-control", page.Mobile.GetClass());
-        Assert.False(page.Mobile.IsValid());
+            Assert.Contains("form-control", page.LastName.GetClass());
+            Assert.False(page.LastName.IsValid());
+
+
+            Assert.Contains("form-control", page.Mobile.GetClass());
+            Assert.False(page.Mobile.IsValid());
+
+        });
 
     }
 
@@ -35,71 +39,76 @@ public class ErrorMessageFormTest : BaseTest
     [Fact]
     public void TC02_ProgressivelyFillRequiredFieldsAndValidateRemainingInvalid()
     {
-        driver.Url = "https://demoqa.com/automation-practice-form";
 
-        var page = new RegistrationFormPage(driver);
+        PerformTest(() =>
+        {
+            driver.Url = "https://demoqa.com/automation-practice-form";
 
-        page.NavigateTo();
+            var page = new RegistrationFormPage(driver);
 
-        page.ClickSubmit();
+            page.NavigateTo();
 
-
-        Assert.Contains("form-control", page.FirstName.GetClass());
-        Assert.False(page.FirstName.IsValid());
-
-
-        Assert.Contains("form-control", page.LastName.GetClass());
-        Assert.False(page.LastName.IsValid());
+            page.ClickSubmit();
 
 
-        Assert.Contains("form-control", page.Mobile.GetClass());
-        Assert.False(page.Mobile.IsValid());
+            Assert.Contains("form-control", page.FirstName.GetClass());
+            Assert.False(page.FirstName.IsValid());
 
 
-        page.EnterFirstName("John");
-        page.ClickSubmit();
+            Assert.Contains("form-control", page.LastName.GetClass());
+            Assert.False(page.LastName.IsValid());
 
 
-        Assert.Contains("form-control", page.FirstName.GetClass());
-        Assert.True(page.FirstName.IsValid());
+            Assert.Contains("form-control", page.Mobile.GetClass());
+            Assert.False(page.Mobile.IsValid());
 
 
-        Assert.Contains("form-control", page.LastName.GetClass());
-        Assert.False(page.LastName.IsValid());
+            page.EnterFirstName("John");
+            page.ClickSubmit();
 
 
-        Assert.Contains("form-control", page.Mobile.GetClass());
-        Assert.False(page.Mobile.IsValid());
+            Assert.Contains("form-control", page.FirstName.GetClass());
+            Assert.True(page.FirstName.IsValid());
 
 
-        page.EnterLastName("Joe");
-        page.ClickSubmit();
+            Assert.Contains("form-control", page.LastName.GetClass());
+            Assert.False(page.LastName.IsValid());
 
 
-        Assert.Contains("form-control", page.FirstName.GetClass());
-        Assert.True(page.FirstName.IsValid());
+            Assert.Contains("form-control", page.Mobile.GetClass());
+            Assert.False(page.Mobile.IsValid());
 
 
-        Assert.Contains("form-control", page.LastName.GetClass());
-        Assert.True(page.LastName.IsValid());
+            page.EnterLastName("Joe");
+            page.ClickSubmit();
 
 
-        Assert.Contains("form-control", page.Mobile.GetClass());
-        Assert.False(page.Mobile.IsValid());
-
-        page.EnterMobile("0919092211");
-        page.ClickSubmit();
-
-        Assert.Contains("form-control", page.FirstName.GetClass());
-        Assert.True(page.FirstName.IsValid());
+            Assert.Contains("form-control", page.FirstName.GetClass());
+            Assert.True(page.FirstName.IsValid());
 
 
-        Assert.Contains("form-control", page.LastName.GetClass());
-        Assert.True(page.LastName.IsValid());
+            Assert.Contains("form-control", page.LastName.GetClass());
+            Assert.True(page.LastName.IsValid());
 
 
-        Assert.Contains("form-control", page.Mobile.GetClass());
-        Assert.True(page.Mobile.IsValid());
+            Assert.Contains("form-control", page.Mobile.GetClass());
+            Assert.False(page.Mobile.IsValid());
+
+            page.EnterMobile("0919092211");
+            page.ClickSubmit();
+
+            Assert.Contains("form-control", page.FirstName.GetClass());
+            Assert.True(page.FirstName.IsValid());
+
+
+            Assert.Contains("form-control", page.LastName.GetClass());
+            Assert.True(page.LastName.IsValid());
+
+
+            Assert.Contains("form-control", page.Mobile.GetClass());
+            Assert.True(page.Mobile.IsValid());
+
+        });
     }
 
 
