@@ -65,36 +65,7 @@ public abstract class BasePage
     }
 
 
-    public void Click(By locator) => WaitUntilClickable(locator).Click();
 
-    public void Type(By locator, string text)
-    {
-        var element = WaitUntilVisible(locator);
-        element.SendKeys(text);
-    }
-
-    public void Clear(By locator)
-    {
-        var element = WaitUntilVisible(locator);
-        element.Clear();
-    }
-
-    public void SelectByValue(By locator, string value)
-    {
-        var element = WaitUntilVisible(locator);
-
-        SelectElement selectElement = new SelectElement(element);
-        selectElement.SelectByValue(value);
-    }
-
-    public void SelectByText(By locator, string text)
-    {
-
-        var element = WaitUntilVisible(locator);
-
-        SelectElement selectElement = new SelectElement(element);
-        selectElement.SelectByValue(text);
-    }
 
     public string GetText(By locator) => WaitUntilVisible(locator).Text;
 }
