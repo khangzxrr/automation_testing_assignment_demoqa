@@ -29,7 +29,7 @@ public class AccordionPage : BasePage
 
     public int GetClientHeight(WebElement element)
     {
-        return Convert.ToInt32(((IJavaScriptExecutor)driver).ExecuteScript("return arguments[0].clientHeight;", element.source));
+        return Convert.ToInt32(element.ExecuteScript<object>("return arguments[0].clientHeight;"));
     }
 
     public bool IsCollapsed(WebElement element) => GetClientHeight(element) == 0;
