@@ -1,6 +1,5 @@
 public class BookStoreTest : BaseTest
 {
-
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "BookStore")]
@@ -11,25 +10,29 @@ public class BookStoreTest : BaseTest
     public void TC09_VerifyBookStoreLoginSearchAndAddToCollection()
     {
         var testname = nameof(TC09_VerifyBookStoreLoginSearchAndAddToCollection);
-        PerformTest(testname, () =>
-        {
-            var page = new BookStorePage(driver);
+        PerformTest(
+            testname,
+            () =>
+            {
+                var page = new BookStorePage(driver);
 
-            page.NavigateTo();
+                page.NavigateTo();
 
-            // Step 1: Login
-            page.Login("khangzxrr", "@DucatiV4S@");
+                page.WaitForPageReady();
 
-            // Step 2: Search book
-            page.SearchBook("Git Pocket Guide");
+                // Step 1: Login
+                page.Login("khangzxrr", "@DucatiV4S@");
 
-            // Step 3: Click book and add to collection
-            page.ClickFirstBook();
-            page.AddBookToCollection();
+                // Step 2: Search book
+                page.SearchBook("Git Pocket Guide");
 
-            // Step 4: Accept alert (if shown)
-            page.AcceptAlertIfPresent();
+                // Step 3: Click book and add to collection
+                page.ClickFirstBook();
+                page.AddBookToCollection();
 
-        });
+                // Step 4: Accept alert (if shown)
+                page.AcceptAlertIfPresent();
+            }
+        );
     }
 }

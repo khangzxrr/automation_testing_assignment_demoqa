@@ -1,4 +1,3 @@
-
 public class WebTableCrudTest : BaseTest
 {
     [Theory]
@@ -10,47 +9,64 @@ public class WebTableCrudTest : BaseTest
     [Trait("Level", "Functional")]
     [InlineData("John", "Doe", "john.doe@example.com", "30", "80000", "QA", "90000")]
     [InlineData("Alice", "Smith", "alice.smith@example.com", "28", "75000", "HR", "82000")]
-    public void TC06_VerifyWebTableCRUDOperations(string first, string last, string email, string age, string initialSalary, string department, string updatedSalary)
+    public void TC06_VerifyWebTableCRUDOperations(
+        string first,
+        string last,
+        string email,
+        string age,
+        string initialSalary,
+        string department,
+        string updatedSalary
+    )
     {
         var testname = nameof(TC06_VerifyWebTableCRUDOperations);
 
-        PerformTest(testname, () =>
-        {
-            var page = new WebTableCrudPage(driver);
+        PerformTest(
+            testname,
+            () =>
+            {
+                var page = new WebTableCrudPage(driver);
 
-            page.NavigateTo();
+                page.NavigateTo();
 
-            page.AddRecord(first, last, email, age, initialSalary, department);
+                page.WaitForPageReady();
 
-            page.SearchByFirstName(first);
-            page.WaitUntilRowCountNotEmpty();
+                page.AddRecord(first, last, email, age, initialSalary, department);
 
-            Assert.Contains(first, page.TableCells[0].Text);
-            Assert.Contains(last, page.TableCells[1].Text);
-            Assert.Contains(email, page.TableCells[3].Text);
+                page.SearchByFirstName(first);
+                page.WaitUntilRowCountNotEmpty();
 
-            page.updatedSalary(updatedSalary);
+                Assert.Contains(first, page.TableCells[0].Text);
+                Assert.Contains(last, page.TableCells[1].Text);
+                Assert.Contains(email, page.TableCells[3].Text);
 
-            page.SearchByFirstName(first);
-            Assert.Contains(updatedSalary, page.TableCells[4].Text);
+                page.updatedSalary(updatedSalary);
 
-            page.DeleteButton.Click();
-            Assert.Empty(page.TableBody.Text.Trim());
+                page.SearchByFirstName(first);
+                Assert.Contains(updatedSalary, page.TableCells[4].Text);
 
-            page.setPaginationTo("5");
-            Assert.Equal("5", page.PaginationSelect.source.GetAttribute("value"));
+                page.DeleteButton.Click();
+                Assert.Empty(page.TableBody.Text.Trim());
 
-            page.SearchBox.Clear();
+                page.setPaginationTo("5");
+                Assert.Equal("5", page.PaginationSelect.source.GetAttribute("value"));
 
-            page.FirstNameHeader.Click(); // ascending
-            var namesAsc = page.FirstNameCells.Select(e => e.Text).Where(t => !string.IsNullOrWhiteSpace(t)).ToList();
-            Assert.Equal(namesAsc.Order(), namesAsc);
+                page.SearchBox.Clear();
 
-            page.FirstNameHeader.Click(); // descending
-            var namesDesc = page.FirstNameCells.Select(e => e.Text).Where(t => !string.IsNullOrWhiteSpace(t)).ToList();
-            Assert.Equal(namesDesc.OrderDescending(), namesDesc);
+                page.FirstNameHeader.Click(); // ascending
+                var namesAsc = page
+                    .FirstNameCells.Select(e => e.Text)
+                    .Where(t => !string.IsNullOrWhiteSpace(t))
+                    .ToList();
+                Assert.Equal(namesAsc.Order(), namesAsc);
 
-        });
+                page.FirstNameHeader.Click(); // descending
+                var namesDesc = page
+                    .FirstNameCells.Select(e => e.Text)
+                    .Where(t => !string.IsNullOrWhiteSpace(t))
+                    .ToList();
+                Assert.Equal(namesDesc.OrderDescending(), namesDesc);
+            }
+        );
     }
-
 }

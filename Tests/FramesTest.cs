@@ -1,6 +1,5 @@
 public class FramesTest : BaseTest
 {
-
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "Frames")]
@@ -12,24 +11,28 @@ public class FramesTest : BaseTest
     {
         var testname = nameof(TC08_VerifyFrameNavigationAndContent);
 
-        PerformTest(testname, () =>
-        {
-            var page = new FramesPage(driver);
+        PerformTest(
+            testname,
+            () =>
+            {
+                var page = new FramesPage(driver);
 
-            page.NavigateTo();
+                page.NavigateTo();
 
-            page.SwitchToFrame1();
-            var heading1 = page.GetFrameHeadingText();
-            Assert.Contains("This is a sample page", heading1);
+                page.WaitForPageReady();
 
-            page.SwitchToDefaultContent();
+                page.SwitchToFrame1();
+                var heading1 = page.GetFrameHeadingText();
+                Assert.Contains("This is a sample page", heading1);
 
-            page.SwitchToFrame2();
-            var heading2 = page.GetFrameHeadingText();
-            Assert.Contains("This is a sample page", heading2);
+                page.SwitchToDefaultContent();
 
-            Assert.Equal(heading1, heading2);
+                page.SwitchToFrame2();
+                var heading2 = page.GetFrameHeadingText();
+                Assert.Contains("This is a sample page", heading2);
 
-        });
+                Assert.Equal(heading1, heading2);
+            }
+        );
     }
 }

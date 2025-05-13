@@ -1,26 +1,35 @@
 public class EmailValidationTest : BaseTest
 {
-
     [Theory]
     [InlineData("MissingAt", "userexample.com")]
     [InlineData("MissingDomain", "user@")]
     [InlineData("ContainsSpace", "user @example.com")]
     [InlineData("SpecialChars", "user@@example..com")]
-    public void TC03_VerifyEmailValidationWithVariousInvalidFormats(string caseName, string invalidEmail)
+    public void TC03_VerifyEmailValidationWithVariousInvalidFormats(
+        string caseName,
+        string invalidEmail
+    )
     {
         var testname = nameof(TC03_VerifyEmailValidationWithVariousInvalidFormats);
 
-        PerformTest(testname, () =>
-        {
-            var page = new RegistrationFormPage(driver);
+        PerformTest(
+            testname,
+            () =>
+            {
+                var page = new RegistrationFormPage(driver);
 
-            page.NavigateTo();
+                page.NavigateTo();
 
-            page.EnterEmail(invalidEmail);
-            page.ClickSubmit();
+                page.WaitForPageReady();
 
-            Assert.False(page.Email.IsValid(), $"Expected invalid email format for case: {caseName} => {invalidEmail}");
+                page.EnterEmail(invalidEmail);
+                page.ClickSubmit();
 
-        });
+                Assert.False(
+                    page.Email.IsValid(),
+                    $"Expected invalid email format for case: {caseName} => {invalidEmail}"
+                );
+            }
+        );
     }
 }

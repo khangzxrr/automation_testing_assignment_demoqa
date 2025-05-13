@@ -1,5 +1,7 @@
 public class DroppableTest : BaseTest
 {
+    public DroppableTest() { }
+
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "Droppable")]
@@ -10,66 +12,68 @@ public class DroppableTest : BaseTest
     public void TC05_VerifyDragAndDropFunctionality()
     {
         var testname = nameof(TC05_VerifyDragAndDropFunctionality);
-        PerformTest(testname, () =>
-        {
-            var page = new DroppablePage(driver);
+        PerformTest(
+            testname,
+            () =>
+            {
+                var page = new DroppablePage(driver);
 
-            page.NavigateTo();
+                page.NavigateTo();
 
-            // --- Step 1: Simple Tab ---
-            page.simpleTab.Click();
+                page.WaitForPageReady();
 
-            page.PerformSimpleDragAndDrop();
+                // --- Step 1: Simple Tab ---
+                page.simpleTab.Click();
 
-            Assert.Equal("Dropped!", page.droppableText.Text);
+                page.PerformSimpleDragAndDrop();
 
-            // --- Step 2: Accept Tab ---
-            page.acceptTab.Click();
+                Assert.Equal("Dropped!", page.droppableText.Text);
 
-            page.PerformDragAndDropNotAcceptTableToTarget();
-            page.waitUntilNotAcceptedDraggableReachTarget();
+                // --- Step 2: Accept Tab ---
+                page.acceptTab.Click();
 
-            Assert.Equal("Drop here", page.acceptedDroppable.Text); // should not accept
+                page.PerformDragAndDropNotAcceptTableToTarget();
+                page.waitUntilNotAcceptedDraggableReachTarget();
 
-            page.PerformDragAndDropAcceptableToTarget();
-            page.waitUntilAcceptedDraggableReachTarget();
+                Assert.Equal("Drop here", page.acceptedDroppable.Text); // should not accept
 
-            Assert.Equal("Dropped!", page.acceptedDroppable.Text);
+                page.PerformDragAndDropAcceptableToTarget();
+                page.waitUntilAcceptedDraggableReachTarget();
 
-            // --- Step 3: Prevent Propagation ---
-            page.preventPropogationTab.Click();
+                Assert.Equal("Dropped!", page.acceptedDroppable.Text);
 
-            page.PerformDragAndDropDragBoxToInnerDrop();
+                // --- Step 3: Prevent Propagation ---
+                page.preventPropogationTab.Click();
 
-            Assert.Equal("Dropped!", page.innerDrop.Text);
-            Assert.Equal("Dropped!\nDropped!", page.outerDrop.Text); // outer text shouldn't change
+                page.PerformDragAndDropDragBoxToInnerDrop();
 
-            page.preventPropogationTab.ScrollIntoView();
+                Assert.Equal("Dropped!", page.innerDrop.Text);
+                Assert.Equal("Dropped!\nDropped!", page.outerDrop.Text); // outer text shouldn't change
 
-            page.PerformDragAndDropDragBoxToGreedyInner();
+                page.preventPropogationTab.ScrollIntoView();
 
-            Assert.Equal("Dropped!", page.greedyInner.Text);
-            Assert.Equal("Outer droppable\nDropped!", page.greedyOuter.Text); // both should change
+                page.PerformDragAndDropDragBoxToGreedyInner();
 
-            // --- Step 4: Revert/Not Revert Tab ---
-            page.revertTab.Click();
+                Assert.Equal("Dropped!", page.greedyInner.Text);
+                Assert.Equal("Outer droppable\nDropped!", page.greedyOuter.Text); // both should change
 
+                // --- Step 4: Revert/Not Revert Tab ---
+                page.revertTab.Click();
 
-            var revertableLocationBefore = page.revertable.source.Location;
+                var revertableLocationBefore = page.revertable.source.Location;
 
-            page.PerformDragAndDropRevertable();
-            Thread.Sleep(1000);
+                page.PerformDragAndDropRevertable();
+                Thread.Sleep(1000);
 
-            Assert.Equal(revertableLocationBefore, page.revertable.source.Location); // it should revert
+                Assert.Equal(revertableLocationBefore, page.revertable.source.Location); // it should revert
 
-            var notRevertableLocationBefore = page.notRevertable.source.Location;
+                var notRevertableLocationBefore = page.notRevertable.source.Location;
 
-            page.PerformDragAndDropNotRevertable();
-            Thread.Sleep(1000); // brief wait
+                page.PerformDragAndDropNotRevertable();
+                Thread.Sleep(1000); // brief wait
 
-            Assert.NotEqual(notRevertableLocationBefore, page.notRevertable.source.Location); // should not revert
-
-        });
+                Assert.NotEqual(notRevertableLocationBefore, page.notRevertable.source.Location); // should not revert
+            }
+        );
     }
-
 }

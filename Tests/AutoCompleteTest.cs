@@ -1,6 +1,5 @@
 public class AutoCompleteTest : BaseTest
 {
-
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "AutoComplete")]
@@ -11,31 +10,35 @@ public class AutoCompleteTest : BaseTest
     public void TC15_VerifyAutoCompleteFunctionality()
     {
         var testname = nameof(TC15_VerifyAutoCompleteFunctionality);
-        PerformTest(testname, () =>
-        {
-            var page = new AutoCompletePage(driver);
+        PerformTest(
+            testname,
+            () =>
+            {
+                var page = new AutoCompletePage(driver);
 
-            page.NavigateTo();
+                page.NavigateTo();
 
-            // Step 1: Type in single color input
-            page.TypeAndSelectSingleColor("Red");
+                page.WaitForPageReady();
 
-            // Step 2: Type in multiple color input
-            page.TypeAndSelectMultipleColors("Blue", "Green");
-            var selected = page.GetSelectedColors();
-            Assert.Contains("Blue", selected);
-            Assert.Contains("Green", selected);
+                // Step 1: Type in single color input
+                page.TypeAndSelectSingleColor("Red");
 
-            // Step 3: Remove one
-            page.RemoveColor("Blue");
-            selected = page.GetSelectedColors();
-            Assert.DoesNotContain("Blue", selected);
-            Assert.Contains("Green", selected);
+                // Step 2: Type in multiple color input
+                page.TypeAndSelectMultipleColors("Blue", "Green");
+                var selected = page.GetSelectedColors();
+                Assert.Contains("Blue", selected);
+                Assert.Contains("Green", selected);
 
-            // Step 4: Clear all
-            page.ClearAllColors();
-            Assert.Empty(page.GetSelectedColors());
+                // Step 3: Remove one
+                page.RemoveColor("Blue");
+                selected = page.GetSelectedColors();
+                Assert.DoesNotContain("Blue", selected);
+                Assert.Contains("Green", selected);
 
-        });
+                // Step 4: Clear all
+                page.ClearAllColors();
+                Assert.Empty(page.GetSelectedColors());
+            }
+        );
     }
 }

@@ -1,6 +1,5 @@
 public class ModelDialogsTest : BaseTest
 {
-
     [Trait("Category", "DemoQA")]
     [Trait("Component", "ModalDialogs")]
     [Trait("TestCase", "TC13")]
@@ -12,29 +11,34 @@ public class ModelDialogsTest : BaseTest
     {
         var testname = nameof(TC13_VerifyModalDialogsDisplayAndClose);
 
-        PerformTest(testname, () =>
-        {
-            var page = new ModalDialogsPage(driver);
-            page.NavigateTo();
+        PerformTest(
+            testname,
+            () =>
+            {
+                var page = new ModalDialogsPage(driver);
 
-            // Step 1: Open small modal and close via X
-            page.OpenSmallModal();
-            Assert.True(page.SmallModalCloseX.Displayed);
-            page.CloseSmallModalX();
+                page.NavigateTo();
 
-            // Step 2: Open small modal and close via button
-            page.OpenSmallModal();
-            Assert.True(page.SmallModalCloseButton.Displayed);
-            page.CloseSmallModalButton();
+                page.WaitForPageReady();
 
-            // Step 3: Open large modal
-            page.OpenLargeModal();
-            Assert.True(page.IsLargeModalVisible());
+                // Step 1: Open small modal and close via X
+                page.OpenSmallModal();
+                Assert.True(page.SmallModalCloseX.Displayed);
+                page.CloseSmallModalX();
 
-            // Step 4: Try clicking overlay (should NOT close modal)
-            page.ClickModalOverlay();
-            Assert.True(page.IsLargeModalVisible()); // still open
+                // Step 2: Open small modal and close via button
+                page.OpenSmallModal();
+                Assert.True(page.SmallModalCloseButton.Displayed);
+                page.CloseSmallModalButton();
 
-        });
+                // Step 3: Open large modal
+                page.OpenLargeModal();
+                Assert.True(page.IsLargeModalVisible());
+
+                // Step 4: Try clicking overlay (should NOT close modal)
+                page.ClickModalOverlay();
+                Assert.True(page.IsLargeModalVisible()); // still open
+            }
+        );
     }
 }
