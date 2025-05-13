@@ -21,6 +21,7 @@
     <Using Include="Xunit" />
     <None Update="ublock_origin-1.63.2.xpi" CopyToOutputDirectory="PreserveNewest" />
     <None Update="sample.jpg" CopyToOutputDirectory="PreserveNewest" />
+    <None Update="xunit.runner.json" CopyToOutputDirectory="PreserveNewest" />
   </ItemGroup>
 
 </Project>
