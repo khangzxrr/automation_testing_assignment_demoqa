@@ -52,7 +52,12 @@ public class WebElement
 
     public void ScrollIntoView()
     {
-        SeleniumHelpers.ScrollIntoView(driver, wait, source);
+        ExecuteScript("arguments[0].scrollIntoView(true);");
+    }
+
+    public void ExecuteScript(string script)
+    {
+        ((IJavaScriptExecutor)driver).ExecuteScript(script, source);
     }
 
     public T ExecuteScript<T>(string script)
