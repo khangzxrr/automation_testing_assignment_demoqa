@@ -23,9 +23,9 @@ public class RegistrationFormPage : BasePage
 
     public WebElement modalImage => Find(RegistrationFormPageLocators.modalPicture_XPath1);
 
-    public WebElement modalAddress => Find(ElementLocators.TC01_VerifyStudentRegistration.modalAddress_XPath1);
+    public WebElement modalAddress => Find(RegistrationFormPageLocators.modalAddress_XPath1);
 
-    public WebElement modalStateAndCity => Find(ElementLocators.TC01_VerifyStudentRegistration.modalStateAndCity_XPath1);
+    public WebElement modalStateAndCity => Find(RegistrationFormPageLocators.modalStateAndCity_XPath1);
 
     public WebElement FirstName => Find(RegistrationFormPageLocators.FirstName_Id);
 

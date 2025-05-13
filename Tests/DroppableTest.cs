@@ -18,7 +18,6 @@ public class DroppableTest : BaseTest
 
         page.PerformSimpleDragAndDrop();
 
-        var droppedText = driver.FindElement(ElementLocators.TC05_VerifyDragAndDropScenarios.Droppable_Text_XPath1).Text;
         Assert.Equal("Dropped!", page.droppableText.Text);
 
         // --- Step 2: Accept Tab ---
