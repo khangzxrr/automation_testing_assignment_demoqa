@@ -1,5 +1,4 @@
 using OpenQA.Selenium;
-using OpenQA.Selenium.Firefox;
 
 public abstract class BaseTest : IDisposable
 {
@@ -7,24 +6,8 @@ public abstract class BaseTest : IDisposable
 
     public BaseTest()
     {
-        var options = new FirefoxOptions
-        {
-            PageLoadStrategy = PageLoadStrategy.Eager,
-            PageLoadTimeout = TimeSpan.FromSeconds(60),
-        };
-        // options.AddArgument("--headless");
-
-        var profile = new FirefoxProfile();
-
-        var fullPathUblock = Directory.GetCurrentDirectory() + "/ublock_origin-1.63.2.xpi";
-        profile.AddExtension(fullPathUblock);
-
-        options.SetPreference("permissions.default.image", 2);
-
-        var service = FirefoxDriverService.CreateDefaultService("/usr/bin/geckodriver");
-
-        driver = new FirefoxDriver(service, options);
-        driver.Manage().Window.Maximize();
+        driver = DriverFactory.MakeDriver(DriverType.Firefox);
+        driver.Manage().Window.Size = new System.Drawing.Size(1920, 1080);
     }
 
     public void Dispose()
@@ -44,6 +27,5 @@ public abstract class BaseTest : IDisposable
             ScreenshotHelper.Capture(driver, testName);
             throw;
         }
-
     }
 }
