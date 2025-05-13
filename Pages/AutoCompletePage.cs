@@ -11,7 +11,7 @@ public class AutoCompletePage : BasePage
     public WebElement SingleColorInput => Find(AutoCompletePageLocators.SingleColorInput_Id);
     public WebElement MultiColorInput => Find(AutoCompletePageLocators.MultiColorInput_Id);
     public WebElement AutoCompleteOption(string color) =>
-        Find(By.XPath($"//div[contains(@id, 'react-select') and text()='{color}']"));
+        Find(AutoCompletePageLocators.AutoCompleteOption(color));
 
     public List<WebElement> MultiColorTags =>
         Finds(AutoCompletePageLocators.MultiColorValue_XPath);
