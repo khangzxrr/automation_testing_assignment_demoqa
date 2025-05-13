@@ -55,6 +55,11 @@ public class WebElement
         SeleniumHelpers.ScrollIntoView(driver, wait, source);
     }
 
+    public T ExecuteScript<T>(string script)
+    {
+        return (T)((IJavaScriptExecutor)driver).ExecuteScript(script, source);
+    }
+
     public bool IsValid() => (bool)((IJavaScriptExecutor)driver).ExecuteScript("return arguments[0].checkValidity();", source);
 
     public string GetClass() => source.GetAttribute("class");
