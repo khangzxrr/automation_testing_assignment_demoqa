@@ -10,7 +10,9 @@ public class FramesTest : BaseTest
     [Trait("Level", "ContextSwitching")]
     public void TC08_VerifyFrameNavigationAndContent()
     {
-        PerformTest(() =>
+        var testname = nameof(TC08_VerifyFrameNavigationAndContent);
+
+        PerformTest(testname, () =>
         {
             var page = new FramesPage(driver);
 

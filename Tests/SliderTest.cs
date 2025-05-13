@@ -9,7 +9,9 @@ public class SliderTest : BaseTest
     [Trait("Level", "Boundary")]
     public void TC10_VerifySliderInteractions()
     {
-        PerformTest(() =>
+        var testname = nameof(TC10_VerifySliderInteractions);
+
+        PerformTest(testname, () =>
         {
             var page = new SliderPage(driver);
 

@@ -8,7 +8,8 @@ public class DatePickerTest : BaseTest
     [Trait("Element", "Calendar")]
     public void TC12_VerifyDatePickerSelections()
     {
-        PerformTest(() =>
+        var testname = nameof(TC12_VerifyDatePickerSelections);
+        PerformTest(testname, () =>
         {
             var page = new DatePickerPage(driver);
 

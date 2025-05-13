@@ -33,7 +33,7 @@ public abstract class BaseTest : IDisposable
         driver?.Dispose();
     }
 
-    protected void PerformTest(Action action)
+    protected void PerformTest(string testName, Action action)
     {
         try
         {
@@ -41,7 +41,7 @@ public abstract class BaseTest : IDisposable
         }
         catch (Exception)
         {
-            ScreenshotHelper.Capture(driver);
+            ScreenshotHelper.Capture(driver, testName);
             throw;
         }
 

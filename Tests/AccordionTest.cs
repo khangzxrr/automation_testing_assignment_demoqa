@@ -9,7 +9,9 @@ public class AccordionTest : BaseTest
     [Trait("Level", "Visibility")]
     public void TC14_VerifyAccordionFunctionality()
     {
-        PerformTest(() =>
+        var name = nameof(TC14_VerifyAccordionFunctionality);
+
+        PerformTest(name, () =>
         {
             var page = new AccordionPage(driver);
 

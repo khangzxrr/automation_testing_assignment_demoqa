@@ -8,7 +8,9 @@ public class ErrorMessageFormTest : BaseTest
     [Fact]
     public void TC02_VerifyValidationMessagesForEmptyRequiredFields()
     {
-        PerformTest(() =>
+        var testname = nameof(TC02_VerifyValidationMessagesForEmptyRequiredFields);
+
+        PerformTest(testname, () =>
         {
             var page = new RegistrationFormPage(driver);
 
@@ -40,7 +42,8 @@ public class ErrorMessageFormTest : BaseTest
     public void TC02_ProgressivelyFillRequiredFieldsAndValidateRemainingInvalid()
     {
 
-        PerformTest(() =>
+        var testname = nameof(TC02_ProgressivelyFillRequiredFieldsAndValidateRemainingInvalid);
+        PerformTest(testname, () =>
         {
             driver.Url = "https://demoqa.com/automation-practice-form";
 

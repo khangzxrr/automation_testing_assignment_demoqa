@@ -52,7 +52,9 @@ public class RegistrationFormTest : BaseTest
         string city
     )
     {
-        PerformTest(() =>
+
+        var testname = nameof(TC01_VerifyUserCanSuccessfullySubmitStudentRegistrationFormWithValidData);
+        PerformTest(testname, () =>
         {
             string imagePath = Directory.GetCurrentDirectory() + "/" + imageName;
 

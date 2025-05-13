@@ -11,7 +11,8 @@ public class DynamicPropertiesTest : BaseTest
     [Trait("Level", "StateTransition")]
     public void TC04_VerifyDynamicButtonStateChanges()
     {
-        PerformTest(() =>
+        var testname = nameof(TC04_VerifyDynamicButtonStateChanges);
+        PerformTest(testname, () =>
         {
             var page = new DynamicPropertyPage(driver);
 

@@ -10,7 +10,8 @@ public class BookStoreTest : BaseTest
     [Trait("Level", "EndToEnd")]
     public void TC09_VerifyBookStoreLoginSearchAndAddToCollection()
     {
-        PerformTest(() =>
+        var testname = nameof(TC09_VerifyBookStoreLoginSearchAndAddToCollection);
+        PerformTest(testname, () =>
         {
             var page = new BookStorePage(driver);
 

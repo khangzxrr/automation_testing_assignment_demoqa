@@ -9,7 +9,8 @@ public class DroppableTest : BaseTest
     [Trait("Level", "Functional")]
     public void TC05_VerifyDragAndDropFunctionality()
     {
-        PerformTest(() =>
+        var testname = nameof(TC05_VerifyDragAndDropFunctionality);
+        PerformTest(testname, () =>
         {
             var page = new DroppablePage(driver);
 

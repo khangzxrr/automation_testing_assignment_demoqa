@@ -10,7 +10,8 @@ public class AlertsTest : BaseTest
     [Fact]
     public void TC07_VerifyAlertHandlingFunctionality()
     {
-        PerformTest(() =>
+        var testname = nameof(TC07_VerifyAlertHandlingFunctionality);
+        PerformTest(testname, () =>
         {
             var page = new AlertsPage(driver);
 

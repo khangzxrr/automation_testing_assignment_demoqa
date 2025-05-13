@@ -10,7 +10,9 @@ public class ModelDialogsTest : BaseTest
     [Fact]
     public void TC13_VerifyModalDialogsDisplayAndClose()
     {
-        PerformTest(() =>
+        var testname = nameof(TC13_VerifyModalDialogsDisplayAndClose);
+
+        PerformTest(testname, () =>
         {
             var page = new ModalDialogsPage(driver);
             page.NavigateTo();

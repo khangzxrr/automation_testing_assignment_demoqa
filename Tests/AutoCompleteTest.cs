@@ -10,7 +10,8 @@ public class AutoCompleteTest : BaseTest
     [Trait("Level", "MultiSelect")]
     public void TC15_VerifyAutoCompleteFunctionality()
     {
-        PerformTest(() =>
+        var testname = nameof(TC15_VerifyAutoCompleteFunctionality);
+        PerformTest(testname, () =>
         {
             var page = new AutoCompletePage(driver);
 

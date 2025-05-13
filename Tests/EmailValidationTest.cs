@@ -8,7 +8,9 @@ public class EmailValidationTest : BaseTest
     [InlineData("SpecialChars", "user@@example..com")]
     public void TC03_VerifyEmailValidationWithVariousInvalidFormats(string caseName, string invalidEmail)
     {
-        PerformTest(() =>
+        var testname = nameof(TC03_VerifyEmailValidationWithVariousInvalidFormats);
+
+        PerformTest(testname, () =>
         {
             var page = new RegistrationFormPage(driver);
 

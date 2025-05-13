@@ -12,7 +12,9 @@ public class WebTableCrudTest : BaseTest
     [InlineData("Alice", "Smith", "alice.smith@example.com", "28", "75000", "HR", "82000")]
     public void TC06_VerifyWebTableCRUDOperations(string first, string last, string email, string age, string initialSalary, string department, string updatedSalary)
     {
-        PerformTest(() =>
+        var testname = nameof(TC06_VerifyWebTableCRUDOperations);
+
+        PerformTest(testname, () =>
         {
             var page = new WebTableCrudPage(driver);
 

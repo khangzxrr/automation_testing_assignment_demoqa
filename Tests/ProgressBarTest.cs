@@ -10,7 +10,9 @@ public class ProgressBarTest : BaseTest
     [Trait("Level", "Dynamic")]
     public void TC11_VerifyProgressBarFunctionality()
     {
-        PerformTest(() =>
+        var testname = nameof(TC11_VerifyProgressBarFunctionality);
+        PerformTest(testname, () =>
+
         {
             var page = new ProgressBarPage(driver);
 
