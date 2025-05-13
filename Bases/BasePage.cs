@@ -8,20 +8,12 @@ public abstract class BasePage
     protected WebDriverWait wait;
     protected Actions actions;
 
-    protected BasePage(IWebDriver driver)
+    protected BasePage(IWebDriver driver, int timeoutInSeconds = 15)
     {
         this.driver = driver;
 
-        wait = new WebDriverWait(driver, TimeSpan.FromSeconds(15));
+        wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
         actions = new Actions(driver);
-    }
-
-    protected IWebElement WaitUntilClickable(By locator, int timeoutInSeconds = 15)
-    {
-        var localWait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-        return localWait.Until(
-            SeleniumExtras.WaitHelpers.ExpectedConditions.ElementToBeClickable(locator)
-        );
     }
 
     protected IWebElement WaitUntilVisible(By locator, int timeoutInSeconds = 15)
@@ -39,8 +31,6 @@ public abstract class BasePage
             SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(locator)
         );
     }
-
-
 
     public WebElement Find(By locator)
     {
@@ -63,9 +53,4 @@ public abstract class BasePage
 
         return new WebElement(driver, element, wait, locator);
     }
-
-
-
-
-    public string GetText(By locator) => WaitUntilVisible(locator).Text;
 }
