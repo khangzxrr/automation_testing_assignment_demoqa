@@ -35,6 +35,17 @@ public static class DataLoader
         }
     }
 
+    public static IEnumerable<object[]> Books
+    {
+        get
+        {
+            string filePath = "TestData/WebTables/Books.csv";
+            return DataLoaderStrategyFactory
+              .GetLoader(filePath)
+              .LoadData(filePath);
+        }
+    }
+
 
 
 }
