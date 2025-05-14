@@ -1,10 +1,10 @@
 public static class DataLoader
 {
-    public static IEnumerable<object[]> ValidUser
+    public static IEnumerable<object[]> ValidUsers
     {
         get
         {
-            string filePath = "TestData/Registration/ValidUser.json";
+            string filePath = "TestData/Registration/ValidUsers.json";
             return DataLoaderStrategyFactory
               .GetLoader(filePath)
               .LoadData(filePath);
@@ -13,16 +13,17 @@ public static class DataLoader
     }
 
 
-    public static IEnumerable<object[]> InvalidUser
+    public static IEnumerable<object[]> InvalidEmails
     {
         get
         {
-            string filePath = "TestData/Registration/InvalidUser.csv";
+            string filePath = "TestData/Registration/InvalidEmails.csv";
             return DataLoaderStrategyFactory
               .GetLoader(filePath)
               .LoadData(filePath);
         }
-
     }
+
+
 
 }

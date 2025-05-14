@@ -1,0 +1,5 @@
+CaseName,Email
+MissingAt,user@
+MissingDomain,user @example.com
+ContainsSpace,user@@example..com
+SpecialChars,user##$!#@@example..com

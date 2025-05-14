@@ -1,10 +1,13 @@
 public class EmailValidationTest : BaseTest
 {
     [Theory]
-    [InlineData("MissingAt", "userexample.com")]
-    [InlineData("MissingDomain", "user@")]
-    [InlineData("ContainsSpace", "user @example.com")]
-    [InlineData("SpecialChars", "user@@example..com")]
+    [Trait("Category", "DemoQA")]
+    [Trait("Component", "FormValidation")]
+    [Trait("TestCase", "TC03")]
+    [Trait("Type", "InputFormat")]
+    [Trait("Element", "EmailField")]
+    [Trait("Level", "Validation")]
+    [MemberData(nameof(DataLoader.InvalidEmails), MemberType = typeof(DataLoader))]
     public void TC03_VerifyEmailValidationWithVariousInvalidFormats(
         string caseName,
         string invalidEmail

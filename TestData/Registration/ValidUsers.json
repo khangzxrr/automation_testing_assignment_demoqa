@@ -1,4 +1,34 @@
 [
-  { "FirstName": "Alice", "LastName": "Johnson" },
-  { "FirstName": "Bob", "LastName": "Smith" }
+  {
+    "FirstName": "firstName",
+    "LastName": "lastName",
+    "Email": "khangzxrr@gmail.com",
+    "Gender": "Male",
+    "PhoneNumber": "0919092211",
+    "Day": 21,
+    "Month": 6,
+    "Year": 2000,
+    "Picture": "sample.jpg",
+    "Subject": "English",
+    "Hobby": "Sports",
+    "Address": "159 xa lo ha noi",
+    "State": "NCR",
+    "City": "Delhi"
+  },
+  {
+    "FirstName": "firstName2",
+    "LastName": "lastName2",
+    "Email": "khangzxrr2@gmail.com",
+    "Gender": "Male",
+    "PhoneNumber": "0919092233",
+    "Day": 21,
+    "Month": 5,
+    "Year": 2000,
+    "Picture": "sample.jpg",
+    "Subject": "English",
+    "Hobby": "Sports",
+    "Address": "159 xa lo ha noi",
+    "State": "Uttar Pradesh",
+    "City": "Agra"
+  }
 ]

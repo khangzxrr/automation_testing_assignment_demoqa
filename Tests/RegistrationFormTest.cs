@@ -2,39 +2,12 @@ public class RegistrationFormTest : BaseTest
 {
     [Theory]
     [Trait("Category", "DemoQA")]
-    [Trait("Component", "StudentRegistrationForm")]
-    [InlineData(
-        "firstName",
-        "lastName",
-        "khangzxrr@gmail.com",
-        "Male",
-        "0919092211",
-        21,
-        6,
-        2000,
-        "sample.jpg",
-        "English",
-        "Sports",
-        "159 xa lo ha noi",
-        "NCR",
-        "Delhi"
-    )]
-    [InlineData(
-        "firstName2",
-        "lastName2",
-        "khangzxrr2@gmail.com",
-        "Male",
-        "0919092233",
-        21,
-        5,
-        2000,
-        "sample.jpg",
-        "English",
-        "Sports",
-        "159 xa lo ha noi",
-        "Uttar Pradesh",
-        "Agra"
-    )]
+    [Trait("Component", "FormSubmission")]
+    [Trait("TestCase", "TC01")]
+    [Trait("Type", "UIInteraction")]
+    [Trait("Element", "StudentRegistrationForm")]
+    [Trait("Level", "EndToEnd")]
+    [MemberData(nameof(DataLoader.ValidUsers), MemberType = typeof(DataLoader))]
     public void TC01_VerifyUserCanSuccessfullySubmitStudentRegistrationFormWithValidData(
         string firstName,
         string lastName,
@@ -55,6 +28,7 @@ public class RegistrationFormTest : BaseTest
         var testname = nameof(
             TC01_VerifyUserCanSuccessfullySubmitStudentRegistrationFormWithValidData
         );
+
         PerformTest(
             testname,
             () =>
