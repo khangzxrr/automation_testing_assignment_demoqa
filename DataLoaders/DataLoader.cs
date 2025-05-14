@@ -4,11 +4,25 @@ public static class DataLoader
     {
         get
         {
-            string filePath = "TestData/ValidUser.json";
+            string filePath = "TestData/Registration/ValidUser.json";
             return DataLoaderStrategyFactory
               .GetLoader(filePath)
-              .LoadData<object[]>(filePath);
+              .LoadData(filePath);
         }
 
     }
+
+
+    public static IEnumerable<object[]> InvalidUser
+    {
+        get
+        {
+            string filePath = "TestData/Registration/InvalidUser.csv";
+            return DataLoaderStrategyFactory
+              .GetLoader(filePath)
+              .LoadData(filePath);
+        }
+
+    }
+
 }

@@ -1,13 +1,22 @@
-
-using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 public class JsonDataLoader : IDataLoaderStrategy
 {
 
-    public IEnumerable<T> LoadData<T>(string filepath)
+    public IEnumerable<object[]> LoadData(string filepath)
     {
         var json = File.ReadAllText(filepath);
+        var array = JArray.Parse(json);
 
-        return JsonConvert.DeserializeObject<IEnumerable<T>>(json);
+        foreach (JObject obj in array)
+        {
+            var values = new List<object>();
+            foreach (var prop in obj.Properties())
+            {
+                values.Add(prop.Value.ToString()); // or .ToObject<object>() for raw values
+            }
+
+            yield return values.ToArray();
+        }
     }
 }

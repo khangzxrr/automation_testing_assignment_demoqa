@@ -4,14 +4,24 @@ using CsvHelper;
 
 public class CsvDataLoader : IDataLoaderStrategy
 {
-    public IEnumerable<T> LoadData<T>(string filePath)
+
+    public IEnumerable<object[]> LoadData(string filepath)
     {
-        using (var reader = new StreamReader(filePath))
+        using var reader = new StreamReader(filepath);
+        using var csv = new CsvReader(reader, CultureInfo.InvariantCulture);
+        csv.Read(); // move to first row
+        csv.ReadHeader(); // load headers
+
+        var headers = csv.HeaderRecord;
+
+        while (csv.Read())
         {
-            using (var csv = new CsvReader(reader, CultureInfo.InvariantCulture))
+            var values = new object[headers.Length];
+            for (int i = 0; i < headers.Length; i++)
             {
-                return csv.GetRecords<T>();
+                values[i] = csv.GetField(headers[i]);
             }
+            yield return values;
         }
     }
 }

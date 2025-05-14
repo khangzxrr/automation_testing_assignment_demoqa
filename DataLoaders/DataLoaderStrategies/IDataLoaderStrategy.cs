@@ -1,4 +1,4 @@
 public interface IDataLoaderStrategy
 {
-    IEnumerable<T> LoadData<T>(string filepath);
+    IEnumerable<object[]> LoadData(string filepath);
 }
