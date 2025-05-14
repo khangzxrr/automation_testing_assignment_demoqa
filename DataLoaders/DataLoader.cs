@@ -24,6 +24,17 @@ public static class DataLoader
         }
     }
 
+    public static IEnumerable<object[]> WebTableEmployees
+    {
+        get
+        {
+            string filePath = "TestData/WebTables/Employees.json";
+            return DataLoaderStrategyFactory
+              .GetLoader(filePath)
+              .LoadData(filePath);
+        }
+    }
+
 
 
 }

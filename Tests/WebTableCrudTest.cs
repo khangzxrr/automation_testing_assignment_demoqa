@@ -7,8 +7,7 @@ public class WebTableCrudTest : BaseTest
     [Trait("Type", "CRUD")]
     [Trait("Element", "TableRow")]
     [Trait("Level", "Functional")]
-    [InlineData("John", "Doe", "john.doe@example.com", "30", "80000", "QA", "90000")]
-    [InlineData("Alice", "Smith", "alice.smith@example.com", "28", "75000", "HR", "82000")]
+    [MemberData(nameof(DataLoader.WebTableEmployees), MemberType = typeof(DataLoader))]
     public void TC06_VerifyWebTableCRUDOperations(
         string first,
         string last,
