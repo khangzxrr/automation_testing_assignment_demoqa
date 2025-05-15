@@ -67,20 +67,38 @@ public class RegistrationFormTest : BaseTest
 
                 page.ClickSubmit();
 
+                page.WaitForModalPopup();
+
                 Assert.Contains(firstName + " " + lastName, page.GetModalFullname());
+
                 Assert.Contains(email, page.GetModalEmail());
+
                 Assert.Contains(gender, page.GetModalGender());
+
                 Assert.Contains(mobile, page.GetModalMobile());
-                Assert.Contains(dobYear.ToString(), page.GetDoB());
+
+                Assert.Contains(FormatDate(dobDay, dobMonth, dobYear), page.GetDoB());
 
                 Assert.Contains(imageName.Split('/').Last(), page.GetModalImage());
 
                 Assert.Contains(subjects, page.GetModalSubjects());
+
                 Assert.Contains(hobbies, page.GetModalHobbies());
+
                 Assert.Contains(state, page.GetModalStateAndCity());
+
                 Assert.Contains(city, page.GetModalStateAndCity());
 
             }
         );
+    }
+
+    public string FormatDate(int day, int month, int year)
+    {
+        var date = new DateTime(year, ++month, day); //month must increase because this site is suck
+
+        Console.WriteLine($"{day} {month} {year}");
+
+        return date.ToString("dd MMMM,yyyy");
     }
 }
