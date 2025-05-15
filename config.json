@@ -7,6 +7,7 @@
   },
   "Driver": {
     "Type": "Chrome",
+    "Headless": true,
     "Width": 1920,
     "Height": 1080
   }

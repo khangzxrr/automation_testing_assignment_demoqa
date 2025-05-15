@@ -52,25 +52,40 @@ public class DroppablePage : BasePage
     public WebElement innerDrop =>
         Find(DroppablePageLocators.PreventPropogation_NotGreedyInnerDroppableBox_Id);
 
-    public void PerformDragAndDropDragBoxToInnerDrop() =>
+    public void PerformDragAndDropDragBoxToInnerDrop()
+    {
+        innerDrop.ScrollIntoView();
         actions.DragAndDrop(dragBox.source, innerDrop.source).Perform();
+    }
 
     public WebElement greedyOuter =>
         Find(DroppablePageLocators.PreventPropogation_GreedyDroppableBox_Id);
     public WebElement greedyInner =>
         Find(DroppablePageLocators.PreventPropogation_GreedyInnerDroppableBox_Id);
 
-    public void PerformDragAndDropDragBoxToGreedyInner() =>
+    public void PerformDragAndDropDragBoxToGreedyInner()
+    {
+        greedyInner.ScrollIntoView();
         actions.DragAndDrop(dragBox.source, greedyInner.source).Perform();
+    }
+
 
     public WebElement revertTab => Find(DroppablePageLocators.RevertTab_Id);
     public WebElement revertable => Find(DroppablePageLocators.Revert_RevertableDragBox_Id);
     public WebElement notRevertable => Find(DroppablePageLocators.Revert_NotRevertableDragBox_Id);
     public WebElement revertTarget => Find(DroppablePageLocators.Revert_DroppableBox_CSS1);
 
-    public void PerformDragAndDropRevertable() =>
+    public void PerformDragAndDropRevertable()
+    {
+        revertTarget.ScrollIntoView();
         actions.DragAndDrop(revertable.source, revertTarget.source).Perform();
+    }
 
-    public void PerformDragAndDropNotRevertable() =>
+
+    public void PerformDragAndDropNotRevertable()
+    {
+
+        revertTarget.ScrollIntoView();
         actions.DragAndDrop(notRevertable.source, revertTarget.source).Perform();
+    }
 }

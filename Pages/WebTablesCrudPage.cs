@@ -36,6 +36,7 @@ public class WebTableCrudPage : BasePage
     public void EnterDepartment(string department) => DepartmentInput.Type(department);
     public void SearchByFirstName(string firstName)
     {
+        SearchBox.Click();
         SearchBox.Clear();
         SearchBox.Type(firstName);
     }

@@ -46,6 +46,7 @@ public class DroppableTest : BaseTest
                 page.preventPropogationTab.Click();
 
                 page.PerformDragAndDropDragBoxToInnerDrop();
+                Thread.Sleep(1000);
 
                 Assert.Equal("Dropped!", page.innerDrop.Text);
                 Assert.Equal("Dropped!\nDropped!", page.outerDrop.Text); // outer text shouldn't change
@@ -53,6 +54,7 @@ public class DroppableTest : BaseTest
                 page.preventPropogationTab.ScrollIntoView();
 
                 page.PerformDragAndDropDragBoxToGreedyInner();
+                Thread.Sleep(1000);
 
                 Assert.Equal("Dropped!", page.greedyInner.Text);
                 Assert.Equal("Outer droppable\nDropped!", page.greedyOuter.Text); // both should change
