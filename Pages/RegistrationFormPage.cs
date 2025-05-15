@@ -1,4 +1,5 @@
 using OpenQA.Selenium;
+using SeleniumExtras.WaitHelpers;
 
 public class RegistrationFormPage : BasePage
 {
@@ -62,7 +63,6 @@ public class RegistrationFormPage : BasePage
     public WebElement CityDropDownItem(string city) => Find(RegistrationFormPageLocators.City_Selectable_XPath1(city));
 
     public WebElement Submit => Find(RegistrationFormPageLocators.Submit_XPath1);
-
 
     public void NavigateTo() => driver.Navigate().GoToUrl(url);
 
@@ -176,7 +176,7 @@ public class RegistrationFormPage : BasePage
 
     public void ClickSubmit() => Submit.Click();
 
-
+    public void WaitForModalPopup() => wait.Until(ExpectedConditions.ElementIsVisible(RegistrationFormPageLocators.modalTitle_Id));
 
     public bool IsModalDisplayCorrectInfo(
         string firstName,

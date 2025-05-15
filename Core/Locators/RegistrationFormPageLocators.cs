@@ -61,6 +61,8 @@ public static class RegistrationFormPageLocators
 
     public static By Submit_XPath1 = By.XPath("//button[@id='submit']");
 
+    public static By modalTitle_Id = By.Id("example-modal-sizes-title-lg");
+
     public static By modalName_XPath1 = By.XPath(
         "//table[.//tr[th[1][normalize-space(.)='Label'] and th[2][normalize-space(.)='Values']]]//td[text() = 'Student Name']/following-sibling::td"
     );
