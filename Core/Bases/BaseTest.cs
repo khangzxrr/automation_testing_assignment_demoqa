@@ -6,7 +6,7 @@ public abstract class BaseTest : IDisposable
 
     public BaseTest()
     {
-        driver = DriverFactory.MakeDriver(DriverType.Firefox);
+        driver = DriverFactory.MakeDriverFromConfig();
 
         Logger.Initialize();
     }

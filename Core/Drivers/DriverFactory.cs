@@ -7,20 +7,29 @@ public static class DriverFactory
 {
     public static IWebDriver MakeDriverFromConfig()
     {
+        IWebDriver driver = null;
         if (ConfigurationManager.Config.Driver.Type == "Chrome")
         {
-            return MakeDriver(DriverType.Chrome, GetChromeOptions());
+            driver = MakeDriver(DriverType.Chrome, GetChromeOptions());
         }
         if (ConfigurationManager.Config.Driver.Type == "Firefox")
         {
-            return MakeDriver(DriverType.Firefox, GetFirefoxOptions());
+            driver = MakeDriver(DriverType.Firefox, GetFirefoxOptions());
         }
         if (ConfigurationManager.Config.Driver.Type == "Edge")
         {
-            return MakeDriver(DriverType.Edge, GetEdgeOptions());
+            driver = MakeDriver(DriverType.Edge, GetEdgeOptions());
         }
 
-        throw new ArgumentException("Unsupported browser");
+        if (driver == null)
+        {
+
+            throw new ArgumentException("Unsupported browser");
+        }
+
+        driver.Manage().Window.Size = new System.Drawing.Size(ConfigurationManager.Config.Driver.Width, ConfigurationManager.Config.Driver.Height);
+
+        return driver;
     }
 
     public static IWebDriver MakeDriver(DriverType type, dynamic? options = null)
@@ -52,7 +61,9 @@ public static class DriverFactory
         };
 
         options.AddUserProfilePreference("profile.managed_default_content_settings.images", 2);
-        options.AddArgument("--headless");
+        options.AddArguments("--headless=new");
+        options.AddArguments("--disable-gpu");
+        options.AddArguments("--window-size=1920,1080");
 
         return options;
     }
@@ -66,6 +77,8 @@ public static class DriverFactory
         };
 
         options.AddArgument("--headless");
+        options.AddArgument("--width=1920");
+        options.AddArgument("--height=1080");
         options.SetPreference("permissions.default.image", 2);
 
         return options;
