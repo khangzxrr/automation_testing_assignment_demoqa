@@ -21,7 +21,9 @@ public class DriverPool
 
     public static async Task<IWebDriver> AcquireAsync()
     {
-        return await _channel.Reader.ReadAsync();
+        var driver = await _channel.Reader.ReadAsync();
+
+        return driver;
     }
 
     public static void Release(IWebDriver driver)
@@ -36,6 +38,4 @@ public class DriverPool
             driver.Quit();
         }
     }
-
-
 }
