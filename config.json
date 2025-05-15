@@ -6,6 +6,8 @@
     "EnableFile": true
   },
   "Driver": {
-    "Type": "Firefox"
+    "Type": "Chrome",
+    "Width": 1920,
+    "Height": 1080
   }
 }
