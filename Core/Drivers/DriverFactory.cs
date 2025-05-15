@@ -61,9 +61,19 @@ public static class DriverFactory
         };
 
         options.AddUserProfilePreference("profile.managed_default_content_settings.images", 2);
-        options.AddArguments("--headless=new");
-        options.AddArguments("--disable-gpu");
-        options.AddArguments("--window-size=1920,1080");
+
+        if (ConfigurationManager.Config.Driver.Headless)
+        {
+
+            options.AddArgument("--headless=new");
+
+        }
+        if (ConfigurationManager.Config.Driver.Width != 0 && ConfigurationManager.Config.Driver.Height != 0)
+        {
+            options.AddArgument($"--window-size={ConfigurationManager.Config.Driver.Width},{ConfigurationManager.Config.Driver.Height}");
+        }
+
+        options.AddArgument("--disable-gpu");
 
         return options;
     }
@@ -76,9 +86,24 @@ public static class DriverFactory
             PageLoadTimeout = TimeSpan.FromSeconds(60),
         };
 
-        options.AddArgument("--headless");
-        options.AddArgument("--width=1920");
-        options.AddArgument("--height=1080");
+
+        if (ConfigurationManager.Config.Driver.Headless)
+        {
+
+            options.AddArgument("--headless");
+
+        }
+
+        if (ConfigurationManager.Config.Driver.Width != 0 && ConfigurationManager.Config.Driver.Height != 0)
+        {
+
+            options.AddArgument($"--width={ConfigurationManager.Config.Driver.Width}");
+
+            options.AddArgument($"--height={ConfigurationManager.Config.Driver.Height}");
+
+        }
+
+
         options.SetPreference("permissions.default.image", 2);
 
         return options;
