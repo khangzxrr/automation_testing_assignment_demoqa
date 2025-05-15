@@ -178,37 +178,4 @@ public class RegistrationFormPage : BasePage
 
     public void WaitForModalPopup() => wait.Until(ExpectedConditions.ElementIsVisible(RegistrationFormPageLocators.modalTitle_Id));
 
-    public bool IsModalDisplayCorrectInfo(
-        string firstName,
-        string lastName,
-        string email,
-        string gender,
-        string mobile,
-        int dobDay,
-        int dobMonth,
-        int dobYear,
-        string imageName,
-        string subjects,
-        string hobbies,
-        string address,
-        string state,
-        string city
-        )
-    {
-        var fullName = firstName + " " + lastName;
-
-        return fullName == modalName.Text &&
-              email == modalEmail.Text &&
-              gender == modalGender.Text &&
-              mobile == modalMobile.Text &&
-              modalDob.Text.Contains(dobYear.ToString()) &&
-              subjects == modalSubjects.Text &&
-              hobbies == modalHobbies.Text &&
-              imageName == modalImage.Text &&
-              address == modalAddress.Text &&
-              modalStateAndCity.Text.Contains(state) &&
-              modalStateAndCity.Text.Contains(city);
-
-    }
-
 }
