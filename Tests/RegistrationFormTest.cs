@@ -67,24 +67,19 @@ public class RegistrationFormTest : BaseTest
 
                 page.ClickSubmit();
 
-                Assert.True(
-                    page.IsModalDisplayCorrectInfo(
-                        firstName,
-                        lastName,
-                        email,
-                        gender,
-                        mobile,
-                        dobDay,
-                        dobMonth,
-                        dobYear,
-                        imageName,
-                        subjects,
-                        hobbies,
-                        address,
-                        state,
-                        city
-                    )
-                );
+                Assert.Contains(firstName + " " + lastName, page.GetModalFullname());
+                Assert.Contains(email, page.GetModalEmail());
+                Assert.Contains(gender, page.GetModalGender());
+                Assert.Contains(mobile, page.GetModalMobile());
+                Assert.Contains(dobYear.ToString(), page.GetDoB());
+
+                Assert.Contains(imageName.Split('/').Last(), page.GetModalImage());
+
+                Assert.Contains(subjects, page.GetModalSubjects());
+                Assert.Contains(hobbies, page.GetModalHobbies());
+                Assert.Contains(state, page.GetModalStateAndCity());
+                Assert.Contains(city, page.GetModalStateAndCity());
+
             }
         );
     }

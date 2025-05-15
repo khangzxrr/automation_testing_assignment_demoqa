@@ -66,17 +66,23 @@ public class RegistrationFormPage : BasePage
 
     public void NavigateTo() => driver.Navigate().GoToUrl(url);
 
-    public string GetName() => modalName.Text;
+    public string GetModalFullname() => modalName.Text;
 
-    public string GetEmail() => modalEmail.Text;
+    public string GetModalEmail() => modalEmail.Text;
 
-    public string GetGender() => modalGender.Text;
+    public string GetModalGender() => modalGender.Text;
 
-    public string GetMobile() => modalMobile.Text;
+    public string GetModalMobile() => modalMobile.Text;
 
     public string GetDoB() => modalDob.Text;
 
-    public string GetSubjects() => modalSubjects.Text;
+    public string GetModalImage() => modalImage.Text;
+
+    public string GetModalSubjects() => modalSubjects.Text;
+
+    public string GetModalHobbies() => modalHobbies.Text;
+
+    public string GetModalStateAndCity() => modalStateAndCity.Text;
 
     public void EnterFirstName(string firstName) => FirstName.Type(firstName);
 
