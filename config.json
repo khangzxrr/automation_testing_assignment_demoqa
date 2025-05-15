@@ -1,0 +1,8 @@
+{
+  "Logging": {
+    "MinimumLevel": "Information",
+    "FilePath": "Logs/test.log",
+    "EnableConsole": true,
+    "EnableFile": true
+  }
+}

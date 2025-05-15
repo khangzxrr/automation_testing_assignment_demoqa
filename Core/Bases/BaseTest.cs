@@ -8,12 +8,16 @@ public abstract class BaseTest : IDisposable
     {
         driver = DriverFactory.MakeDriver(DriverType.Firefox);
         driver.Manage().Window.Size = new System.Drawing.Size(1920, 1080);
+
+        Logger.Initialize();
     }
 
     public void Dispose()
     {
         driver?.Quit();
         driver?.Dispose();
+
+        Logger.Shutdown();
     }
 
     protected void PerformTest(string testName, Action action)
@@ -22,9 +26,10 @@ public abstract class BaseTest : IDisposable
         {
             action();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
             ScreenshotHelper.Capture(driver, testName);
+            Serilog.Log.Error(ex, "Test failed: {Message}", ex.Message);
             throw;
         }
     }
