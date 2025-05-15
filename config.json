@@ -4,5 +4,8 @@
     "FilePath": "Logs/test.log",
     "EnableConsole": true,
     "EnableFile": true
+  },
+  "Driver": {
+    "Type": "Firefox"
   }
 }

@@ -7,7 +7,6 @@ public abstract class BaseTest : IDisposable
     public BaseTest()
     {
         driver = DriverFactory.MakeDriver(DriverType.Firefox);
-        driver.Manage().Window.Size = new System.Drawing.Size(1920, 1080);
 
         Logger.Initialize();
     }

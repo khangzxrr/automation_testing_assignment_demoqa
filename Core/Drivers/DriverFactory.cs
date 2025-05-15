@@ -5,6 +5,24 @@ using OpenQA.Selenium.Firefox;
 
 public static class DriverFactory
 {
+    public static IWebDriver MakeDriverFromConfig()
+    {
+        if (ConfigurationManager.Config.Driver.Type == "Chrome")
+        {
+            return MakeDriver(DriverType.Chrome, GetChromeOptions());
+        }
+        if (ConfigurationManager.Config.Driver.Type == "Firefox")
+        {
+            return MakeDriver(DriverType.Firefox, GetFirefoxOptions());
+        }
+        if (ConfigurationManager.Config.Driver.Type == "Edge")
+        {
+            return MakeDriver(DriverType.Edge, GetEdgeOptions());
+        }
+
+        throw new ArgumentException("Unsupported browser");
+    }
+
     public static IWebDriver MakeDriver(DriverType type, dynamic? options = null)
     {
         if (type == DriverType.Chrome)
