@@ -52,7 +52,7 @@ public class WebElement
 
     public void ScrollIntoView()
     {
-        ExecuteScript("arguments[0].scrollIntoView(true);");
+        ExecuteScript("arguments[0].scrollIntoView({ behavior: 'auto', block: 'center', inline: 'nearest'});");
     }
 
     public void ExecuteScript(string script)
