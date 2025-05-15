@@ -1,5 +1,7 @@
 using OpenQA.Selenium;
 
+
+[Collection("TestCollection")]
 public class DynamicPropertiesTest : BaseTest
 {
     [Fact]

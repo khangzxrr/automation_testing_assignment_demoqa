@@ -1,3 +1,5 @@
+
+[Collection("TestCollection")]
 public class ModelDialogsTest : BaseTest
 {
     [Trait("Category", "DemoQA")]

@@ -1,3 +1,5 @@
+
+[Collection("TestCollection")]
 public class ErrorMessageFormTest : BaseTest
 {
     [Trait("Category", "DemoQA")]

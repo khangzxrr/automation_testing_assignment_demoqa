@@ -1,3 +1,4 @@
+[Collection("TestCollection")]
 public class AlertsTest : BaseTest
 {
     [Trait("Category", "DemoQA")]

@@ -1,12 +1,12 @@
 using OpenQA.Selenium;
 
-public abstract class BaseTest : IDisposable
+public abstract class BaseTest : IAsyncLifetime
 {
     protected IWebDriver driver;
 
     public BaseTest()
     {
-        driver = DriverFactory.MakeDriverFromConfig();
+        // driver = DriverFactory.MakeDriverFromConfig();
 
         Logger.Initialize();
     }
@@ -17,6 +17,18 @@ public abstract class BaseTest : IDisposable
         driver?.Dispose();
 
         Logger.Shutdown();
+    }
+
+    public Task DisposeAsync()
+    {
+        DriverPool.Release(driver);
+
+        return Task.CompletedTask;
+    }
+
+    public async Task InitializeAsync()
+    {
+        driver = await DriverPool.AcquireAsync();
     }
 
     protected void PerformTest(string testName, Action action)

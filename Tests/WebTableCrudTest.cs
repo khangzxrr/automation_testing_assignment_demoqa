@@ -1,3 +1,5 @@
+
+[Collection("TestCollection")]
 public class WebTableCrudTest : BaseTest
 {
     [Theory]
