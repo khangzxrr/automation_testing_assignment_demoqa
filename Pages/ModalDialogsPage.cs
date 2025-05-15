@@ -1,4 +1,5 @@
 using OpenQA.Selenium;
+using SeleniumExtras.WaitHelpers;
 
 public class ModalDialogsPage : BasePage
 {
@@ -22,6 +23,9 @@ public class ModalDialogsPage : BasePage
     public void CloseSmallModalX() => SmallModalCloseX.Click();
     public void CloseSmallModalButton() => SmallModalCloseButton.Click();
     public void OpenLargeModal() => LargeModalButton.Click();
+
+    public void WaitForSmallModalDisplay() => wait.Until(ExpectedConditions.ElementIsVisible(ModalDialogsPageLocators.SmallModal_CloseButton_Id));
+    public void WaitForLargeModalDisplay() => wait.Until(ExpectedConditions.ElementIsVisible(ModalDialogsPageLocators.LargeModal_Content_Id));
 
     public bool IsLargeModalVisible()
     {

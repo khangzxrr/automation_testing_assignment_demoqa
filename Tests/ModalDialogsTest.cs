@@ -23,16 +23,24 @@ public class ModelDialogsTest : BaseTest
 
                 // Step 1: Open small modal and close via X
                 page.OpenSmallModal();
+                page.WaitForSmallModalDisplay();
+
                 Assert.True(page.SmallModalCloseX.Displayed);
+
                 page.CloseSmallModalX();
 
                 // Step 2: Open small modal and close via button
                 page.OpenSmallModal();
+                page.WaitForSmallModalDisplay();
+
                 Assert.True(page.SmallModalCloseButton.Displayed);
+
                 page.CloseSmallModalButton();
 
                 // Step 3: Open large modal
                 page.OpenLargeModal();
+                page.WaitForLargeModalDisplay();
+
                 Assert.True(page.IsLargeModalVisible());
 
                 // Step 4: Try clicking overlay (should NOT close modal)
