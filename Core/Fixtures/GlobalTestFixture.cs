@@ -2,8 +2,9 @@ public class GlobalTestFixture : IDisposable
 {
     public GlobalTestFixture()
     {
-        DriverPool.Initialize(4);
+        DriverPool.Initialize(2);
     }
+
     public void Dispose()
     {
         DriverPool.Cleanup();
