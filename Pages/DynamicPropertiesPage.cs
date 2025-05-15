@@ -31,6 +31,6 @@ public class DynamicPropertyPage : BasePage
 
     public void waitUntilVisibleAfterButtonVisibled()
     {
-        WaitUntilVisible(DynamicPropertiesPageLocators.VisibleAfter_Id);
+        WaitHelper.WaitUntilVisible(driver, DynamicPropertiesPageLocators.VisibleAfter_Id);
     }
 }

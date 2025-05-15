@@ -12,28 +12,12 @@ public abstract class BasePage
     {
         this.driver = driver;
 
-        wait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-    }
-
-    protected IWebElement WaitUntilVisible(By locator, int timeoutInSeconds = 15)
-    {
-        var localWait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-        return localWait.Until(
-            SeleniumExtras.WaitHelpers.ExpectedConditions.ElementIsVisible(locator)
-        );
-    }
-
-    protected IWebElement WaitUntilExist(By locator, int timeoutInSeconds = 15)
-    {
-        var localWait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
-        return localWait.Until(
-            SeleniumExtras.WaitHelpers.ExpectedConditions.ElementExists(locator)
-        );
+        wait = WaitHelper.MakeDriverWait(driver, timeoutInSeconds);
     }
 
     public WebElement Find(By locator)
     {
-        var element = WaitUntilExist(locator);
+        var element = WaitHelper.WaitUntilExist(driver, locator);
 
         return new WebElement(driver, element, wait, locator);
     }
@@ -63,13 +47,5 @@ public abstract class BasePage
             .Perform();
     }
 
-    public void WaitForPageReady(int timeoutInSeconds = 60)
-    {
-        new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds)).Until(d =>
-        {
-            var js = (IJavaScriptExecutor)d;
-            return js.ExecuteScript("return document.readyState").ToString() == "complete"
-                && (bool)(js.ExecuteScript("return window.jQuery ? jQuery.active === 0 : true"));
-        });
-    }
+    public void WaitForPageReady() => WaitHelper.WaitForPageReady(driver);
 }
