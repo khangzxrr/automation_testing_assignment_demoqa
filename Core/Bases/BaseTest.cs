@@ -26,29 +26,6 @@ public abstract class BaseTest : IAsyncLifetime
         driver = await DriverPool.AcquireAsync();
     }
 
-    protected void LogInfo(string info)
-    {
-        Serilog.Log.Information(info);
-
-        test.Info(info);
-    }
-
-    protected void LogPass(string pass)
-    {
-        Serilog.Log.Information(pass);
-
-        test.Pass(pass);
-    }
-
-    protected void LogFail(Exception exception, string testName)
-    {
-
-        var screenshotPath = ScreenshotHelper.Capture(driver, testName);
-        Serilog.Log.Error(exception, "Test failed: {Message}", exception.Message);
-
-        test.Fail(exception);
-        test.AddScreenCaptureFromPath(screenshotPath);
-    }
 
     protected void PerformTest(string testName, Action<UnifiedLog> action)
     {
@@ -61,7 +38,7 @@ public abstract class BaseTest : IAsyncLifetime
 
         try
         {
-            LogInfo($"Started test {testName}");
+            test.Info($"Started test {testName}");
 
             action(unifiedLog);
 
@@ -69,7 +46,12 @@ public abstract class BaseTest : IAsyncLifetime
         }
         catch (Exception ex)
         {
-            LogFail(ex, testName);
+
+            var screenshotPath = ScreenshotHelper.Capture(driver, testName);
+            Serilog.Log.Error(ex, "Test failed: {Message}", ex.Message);
+
+            test.Fail(ex);
+            test.AddScreenCaptureFromPath(screenshotPath);
 
             throw;
         }
