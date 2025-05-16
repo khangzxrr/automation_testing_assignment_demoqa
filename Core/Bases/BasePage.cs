@@ -27,7 +27,7 @@ public abstract class BasePage
 
         var element = WaitHelper.WaitUntilExist(driver, locator);
 
-        return new WebElement(driver, element, wait, locator);
+        return new WebElement(driver, element, wait, locator, log);
     }
 
     public List<WebElement> Finds(By locator)
@@ -36,7 +36,7 @@ public abstract class BasePage
 
         log.Info($"Find elements {locator}");
 
-        return elements.Select(e => new WebElement(driver, e, wait, locator)).ToList();
+        return elements.Select(e => new WebElement(driver, e, wait, locator, log)).ToList();
     }
 
     public WebElement FindWithoutWaiting(By locator)
@@ -45,7 +45,7 @@ public abstract class BasePage
 
         log.Info($"Find without waiting element {locator}");
 
-        return new WebElement(driver, element, wait, locator);
+        return new WebElement(driver, element, wait, locator, log);
     }
 
     public void DragAndDrop(WebElement source, WebElement target)
@@ -61,10 +61,12 @@ public abstract class BasePage
             .Perform();
     }
 
-    public void WaitForPageReady()
+    public void WaitForPageReady(int extraWait = 0)
     {
         log.Info("Wait for page ready");
 
         WaitHelper.WaitForPageReady(driver);
+
+        Thread.Sleep(extraWait);
     }
 }

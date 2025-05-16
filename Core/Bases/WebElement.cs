@@ -9,12 +9,19 @@ public class WebElement
 
     private WebDriverWait wait;
 
-    public WebElement(IWebDriver driver, IWebElement source, WebDriverWait wait, By locator)
+    private UnifiedLog log;
+
+    public WebElement(IWebDriver driver, IWebElement source, WebDriverWait wait, By locator, UnifiedLog log)
     {
         this.driver = driver;
+
         this.source = source;
+
         this.wait = wait;
+
         this.locator = locator;
+
+        this.log = log;
     }
 
     public void Click()
@@ -26,12 +33,16 @@ public class WebElement
 
     public void Type(string text)
     {
+        log.Info($"Type {text} to {locator}");
+
         ScrollIntoView();
         source.SendKeys(text);
     }
 
     public void SelectByValue(string value)
     {
+        log.Info($"Select by text {value} of {locator}");
+
         ScrollIntoView();
         SelectElement selectElement = new SelectElement(source);
         selectElement.SelectByValue(value);
@@ -39,6 +50,8 @@ public class WebElement
 
     public void SelectByText(string text)
     {
+        log.Info($"Select by text {text} of {locator}");
+
         ScrollIntoView();
         SelectElement selectElement = new SelectElement(source);
         selectElement.SelectByText(text);
@@ -46,22 +59,30 @@ public class WebElement
 
     public void ScrollIntoViewAndClick()
     {
+        log.Info($"Click on {locator}");
+
         ScrollIntoView();
         source.Click();
     }
 
     public void ScrollIntoView()
     {
+        log.Info($"ScrollIntoView {locator}");
+
         ExecuteScript("arguments[0].scrollIntoView({ behavior: 'auto', block: 'center', inline: 'nearest'});");
     }
 
     public void ExecuteScript(string script)
     {
+        log.Info($"Execute script {script}");
+
         ((IJavaScriptExecutor)driver).ExecuteScript(script, source);
     }
 
     public T ExecuteScript<T>(string script)
     {
+        log.Info($"Execute script {script}");
+
         return (T)((IJavaScriptExecutor)driver).ExecuteScript(script, source);
     }
 
