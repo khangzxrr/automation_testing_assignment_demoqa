@@ -39,7 +39,7 @@ public class RegistrationFormTest : BaseTest
             testname,
             (UnifiedLog log) =>
             {
-                string imagePath = Directory.GetCurrentDirectory() + "/" + imageName;
+                string imagePath = Path.Combine(Directory.GetCurrentDirectory(), imageName);
 
                 var page = new RegistrationFormPage(driver, log);
 
@@ -85,7 +85,7 @@ public class RegistrationFormTest : BaseTest
 
                 Assert.Contains(FormatDate(dobDay, dobMonth, dobYear), page.GetDoB());
 
-                Assert.Contains(imageName.Split('/').Last(), page.GetModalImage());
+                Assert.Contains(imageName.Split('\\').Last(), page.GetModalImage());
 
                 Assert.Contains(subjects, page.GetModalSubjects());
 

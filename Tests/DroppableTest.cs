@@ -54,7 +54,7 @@ public class DroppableTest : BaseTest
                 Thread.Sleep(1000);
 
                 Assert.Equal("Dropped!", page.innerDrop.Text);
-                Assert.Equal("Dropped!\nDropped!", page.outerDrop.Text); // outer text shouldn't change
+                Assert.Equal("Dropped!Dropped!", page.outerDrop.Text.Replace("\r\n","").Replace("\n\n","")); // outer text shouldn't change
 
                 page.preventPropogationTab.ScrollIntoView();
 
@@ -62,7 +62,7 @@ public class DroppableTest : BaseTest
                 Thread.Sleep(1000);
 
                 Assert.Equal("Dropped!", page.greedyInner.Text);
-                Assert.Equal("Outer droppable\nDropped!", page.greedyOuter.Text); // both should change
+                Assert.Equal("Outer droppableDropped!", page.greedyOuter.Text.Replace("\r\n","").Replace("\n","")); // both should change
 
                 // --- Step 4: Revert/Not Revert Tab ---
                 page.revertTab.Click();
