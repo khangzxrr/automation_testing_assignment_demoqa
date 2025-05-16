@@ -5,7 +5,7 @@ public class GlobalTestFixture : IDisposable
 
     public GlobalTestFixture()
     {
-        DriverPool.Initialize(3);
+        DriverPool.Initialize();
 
         LogFixture = new LogFixture();
 
