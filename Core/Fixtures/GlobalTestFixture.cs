@@ -8,6 +8,7 @@ public class GlobalTestFixture : IDisposable
     public void Dispose()
     {
         DriverPool.Cleanup();
+        Logger.Shutdown();
     }
 }
 
