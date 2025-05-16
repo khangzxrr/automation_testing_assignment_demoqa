@@ -2,7 +2,9 @@
 [Collection("TestCollection")]
 public class DroppableTest : BaseTest
 {
-    public DroppableTest() { }
+    public DroppableTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
 
     [Fact]
     [Trait("Category", "DemoQA")]

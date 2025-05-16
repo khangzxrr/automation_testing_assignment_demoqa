@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class WebTableCrudTest : BaseTest
 {
+    public WebTableCrudTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Theory]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "WebTables")]

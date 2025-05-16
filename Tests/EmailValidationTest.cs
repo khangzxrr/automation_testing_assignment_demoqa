@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class EmailValidationTest : BaseTest
 {
+    public EmailValidationTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Theory]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "FormValidation")]

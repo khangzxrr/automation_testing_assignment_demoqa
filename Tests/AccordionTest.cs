@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class AccordionTest : BaseTest
 {
+    public AccordionTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "Accordion")]

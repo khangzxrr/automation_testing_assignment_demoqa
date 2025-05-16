@@ -1,6 +1,10 @@
 [Collection("TestCollection")]
 public class AlertsTest : BaseTest
 {
+    public AlertsTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Trait("Category", "DemoQA")]
     [Trait("Component", "Alerts")]
     [Trait("TestCase", "TC07")]

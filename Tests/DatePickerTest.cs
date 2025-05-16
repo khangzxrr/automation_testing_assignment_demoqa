@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class DatePickerTest : BaseTest
 {
+    public DatePickerTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "DatePicker")]

@@ -4,6 +4,10 @@ using OpenQA.Selenium;
 [Collection("TestCollection")]
 public class DynamicPropertiesTest : BaseTest
 {
+    public DynamicPropertiesTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "PracticeForm")]

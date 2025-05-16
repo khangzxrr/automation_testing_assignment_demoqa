@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class BookStoreTest : BaseTest
 {
+    public BookStoreTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "BookStore")]

@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class ModelDialogsTest : BaseTest
 {
+    public ModelDialogsTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Trait("Category", "DemoQA")]
     [Trait("Component", "ModalDialogs")]
     [Trait("TestCase", "TC13")]

@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class ErrorMessageFormTest : BaseTest
 {
+    public ErrorMessageFormTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Trait("Category", "DemoQA")]
     [Trait("Component", "PracticeForm")]
     [Trait("TestCase", "TC02")]

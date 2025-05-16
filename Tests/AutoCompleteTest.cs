@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class AutoCompleteTest : BaseTest
 {
+    public AutoCompleteTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "AutoComplete")]

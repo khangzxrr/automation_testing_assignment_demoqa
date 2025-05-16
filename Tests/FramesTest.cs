@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class FramesTest : BaseTest
 {
+    public FramesTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "Frames")]

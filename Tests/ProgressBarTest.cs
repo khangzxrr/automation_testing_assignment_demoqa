@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class ProgressBarTest : BaseTest
 {
+    public ProgressBarTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "ProgressBar")]

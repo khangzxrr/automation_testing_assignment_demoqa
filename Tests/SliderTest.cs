@@ -2,6 +2,10 @@
 [Collection("TestCollection")]
 public class SliderTest : BaseTest
 {
+    public SliderTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
+    {
+    }
+
     [Fact]
     [Trait("Category", "DemoQA")]
     [Trait("Component", "Slider")]
