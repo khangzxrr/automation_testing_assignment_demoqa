@@ -1,15 +1,8 @@
 using OpenQA.Selenium;
 
-public abstract class BaseTest : IAsyncLifetime
+public abstract class BaseTest : IAsyncLifetime, IClassFixture<LogFixture>
 {
     protected IWebDriver driver;
-
-    public BaseTest()
-    {
-        Logger.Initialize();
-    }
-
-
 
     public Task DisposeAsync()
     {
