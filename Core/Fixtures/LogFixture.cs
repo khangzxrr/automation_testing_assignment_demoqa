@@ -1,4 +1,4 @@
-public class LogFixture
+public class LogFixture : IDisposable
 {
 
     public LogFixture()
@@ -6,4 +6,8 @@ public class LogFixture
         Logger.Initialize();
     }
 
+    public void Dispose()
+    {
+        Logger.Shutdown();
+    }
 }
