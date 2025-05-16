@@ -6,18 +6,10 @@ public abstract class BaseTest : IAsyncLifetime
 
     public BaseTest()
     {
-        // driver = DriverFactory.MakeDriverFromConfig();
-
         Logger.Initialize();
     }
 
-    public void Dispose()
-    {
-        driver?.Quit();
-        driver?.Dispose();
 
-        Logger.Shutdown();
-    }
 
     public Task DisposeAsync()
     {
