@@ -5,18 +5,26 @@ using OpenQA.Selenium.Support.UI;
 public abstract class BasePage
 {
     protected IWebDriver driver;
+
     protected WebDriverWait wait;
+
     protected Actions actions => new Actions(driver); //should use fresh actions
 
-    protected BasePage(IWebDriver driver, int timeoutInSeconds = 15)
+    protected UnifiedLog log;
+
+    protected BasePage(IWebDriver driver, UnifiedLog log, int timeoutInSeconds = 15)
     {
         this.driver = driver;
 
         wait = WaitHelper.MakeDriverWait(driver, timeoutInSeconds);
+
+        this.log = log;
     }
 
     public WebElement Find(By locator)
     {
+        log.Info($"Find element {locator}");
+
         var element = WaitHelper.WaitUntilExist(driver, locator);
 
         return new WebElement(driver, element, wait, locator);
@@ -26,6 +34,8 @@ public abstract class BasePage
     {
         var elements = driver.FindElements(locator);
 
+        log.Info($"Find elements {locator}");
+
         return elements.Select(e => new WebElement(driver, e, wait, locator)).ToList();
     }
 
@@ -33,11 +43,15 @@ public abstract class BasePage
     {
         var element = driver.FindElement(locator);
 
+        log.Info($"Find without waiting element {locator}");
+
         return new WebElement(driver, element, wait, locator);
     }
 
     public void DragAndDrop(WebElement source, WebElement target)
     {
+        log.Info($"Perform drag and drop");
+
         actions
             .ClickAndHold(source.source)
             .Pause(TimeSpan.FromMilliseconds(500))
@@ -47,5 +61,10 @@ public abstract class BasePage
             .Perform();
     }
 
-    public void WaitForPageReady() => WaitHelper.WaitForPageReady(driver);
+    public void WaitForPageReady()
+    {
+        log.Info("Wait for page ready");
+
+        WaitHelper.WaitForPageReady(driver);
+    }
 }

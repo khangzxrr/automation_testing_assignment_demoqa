@@ -1,4 +1,4 @@
-public class GlobalTestFixture : IDisposable, IClassFixture<ExtentReportFixture>
+public class GlobalTestFixture : IDisposable
 {
     public LogFixture LogFixture { get; }
     public ExtentReportFixture ExtentReportFixture { get; }

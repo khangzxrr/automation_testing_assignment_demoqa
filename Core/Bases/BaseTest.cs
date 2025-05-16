@@ -1,8 +1,18 @@
+using AventStack.ExtentReports;
 using OpenQA.Selenium;
 
-public abstract class BaseTest : IAsyncLifetime, IClassFixture<LogFixture>
+public abstract class BaseTest : IAsyncLifetime
 {
     protected IWebDriver driver;
+
+    protected readonly ExtentReports extent;
+
+    protected ExtentTest test;
+
+    public BaseTest(ExtentReportFixture fixture)
+    {
+        extent = fixture.Extent;
+    }
 
     public Task DisposeAsync()
     {
@@ -16,16 +26,51 @@ public abstract class BaseTest : IAsyncLifetime, IClassFixture<LogFixture>
         driver = await DriverPool.AcquireAsync();
     }
 
-    protected void PerformTest(string testName, Action action)
+    protected void LogInfo(string info)
     {
+        Serilog.Log.Information(info);
+
+        test.Info(info);
+    }
+
+    protected void LogPass(string pass)
+    {
+        Serilog.Log.Information(pass);
+
+        test.Pass(pass);
+    }
+
+    protected void LogFail(Exception exception, string testName)
+    {
+
+        var screenshotPath = ScreenshotHelper.Capture(driver, testName);
+        Serilog.Log.Error(exception, "Test failed: {Message}", exception.Message);
+
+        test.Fail(exception);
+        test.AddScreenCaptureFromPath(screenshotPath);
+    }
+
+    protected void PerformTest(string testName, Action<UnifiedLog> action)
+    {
+        lock (extent)
+        {
+            test = extent.CreateTest(testName);
+        }
+
+        var unifiedLog = new UnifiedLog(test);
+
         try
         {
-            action();
+            LogInfo($"Started test {testName}");
+
+            action(unifiedLog);
+
+            test.Pass($"Passed Test {testName}");
         }
         catch (Exception ex)
         {
-            ScreenshotHelper.Capture(driver, testName);
-            Serilog.Log.Error(ex, "Test failed: {Message}", ex.Message);
+            LogFail(ex, testName);
+
             throw;
         }
     }
