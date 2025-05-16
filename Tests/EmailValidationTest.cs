@@ -23,9 +23,9 @@ public class EmailValidationTest : BaseTest
 
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new RegistrationFormPage(driver);
+                var page = new RegistrationFormPage(driver, log);
 
                 page.NavigateTo();
 

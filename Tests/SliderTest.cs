@@ -19,9 +19,9 @@ public class SliderTest : BaseTest
 
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new SliderPage(driver);
+                var page = new SliderPage(driver, log);
 
                 page.NavigateTo();
 

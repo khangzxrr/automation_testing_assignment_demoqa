@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 public class ProgressBarPage : BasePage
 {
-    public ProgressBarPage(IWebDriver driver) : base(driver)
+    public ProgressBarPage(IWebDriver driver, UnifiedLog log) : base(driver, log)
     {
     }
 

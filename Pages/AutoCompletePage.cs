@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 public class AutoCompletePage : BasePage
 {
-    public AutoCompletePage(IWebDriver driver) : base(driver)
+    public AutoCompletePage(IWebDriver driver, UnifiedLog log) : base(driver, log)
     {
     }
     public void NavigateTo() => driver.Navigate().GoToUrl(url);

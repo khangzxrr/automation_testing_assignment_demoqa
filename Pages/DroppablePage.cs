@@ -2,8 +2,8 @@ using OpenQA.Selenium;
 
 public class DroppablePage : BasePage
 {
-    public DroppablePage(IWebDriver driver)
-        : base(driver) { }
+    public DroppablePage(IWebDriver driver, UnifiedLog log)
+        : base(driver, log) { }
 
     private readonly string url = "https://demoqa.com/droppable";
 

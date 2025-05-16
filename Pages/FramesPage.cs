@@ -3,7 +3,7 @@ using SeleniumExtras.WaitHelpers;
 
 public class FramesPage : BasePage
 {
-    public FramesPage(IWebDriver driver) : base(driver)
+    public FramesPage(IWebDriver driver, UnifiedLog log) : base(driver, log)
     {
     }
 

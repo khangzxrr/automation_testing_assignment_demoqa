@@ -28,9 +28,9 @@ public class WebTableCrudTest : BaseTest
 
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new WebTableCrudPage(driver);
+                var page = new WebTableCrudPage(driver, log);
 
                 page.NavigateTo();
 

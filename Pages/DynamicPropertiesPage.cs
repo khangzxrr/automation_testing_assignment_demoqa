@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 public class DynamicPropertyPage : BasePage
 {
-    public DynamicPropertyPage(IWebDriver driver) : base(driver)
+    public DynamicPropertyPage(IWebDriver driver, UnifiedLog log) : base(driver, log)
     {
     }
 

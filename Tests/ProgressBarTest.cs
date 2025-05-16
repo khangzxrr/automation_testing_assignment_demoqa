@@ -18,9 +18,9 @@ public class ProgressBarTest : BaseTest
         var testname = nameof(TC11_VerifyProgressBarFunctionality);
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new ProgressBarPage(driver);
+                var page = new ProgressBarPage(driver, log);
 
                 page.NavigateTo();
 

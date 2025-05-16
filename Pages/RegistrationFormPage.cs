@@ -3,8 +3,8 @@ using SeleniumExtras.WaitHelpers;
 
 public class RegistrationFormPage : BasePage
 {
-    public RegistrationFormPage(IWebDriver driver)
-        : base(driver) { }
+    public RegistrationFormPage(IWebDriver driver, UnifiedLog log)
+        : base(driver, log) { }
 
     private readonly string url = "https://demoqa.com/automation-practice-form";
 

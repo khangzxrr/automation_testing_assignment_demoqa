@@ -17,9 +17,9 @@ public class AlertsTest : BaseTest
         var testname = nameof(TC07_VerifyAlertHandlingFunctionality);
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new AlertsPage(driver);
+                var page = new AlertsPage(driver, log);
 
                 page.NavigateTo();
 

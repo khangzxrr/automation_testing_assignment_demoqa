@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 public class SliderPage : BasePage
 {
-    public SliderPage(IWebDriver driver) : base(driver)
+    public SliderPage(IWebDriver driver, UnifiedLog log) : base(driver, log)
     {
     }
 

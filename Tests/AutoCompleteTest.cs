@@ -18,9 +18,9 @@ public class AutoCompleteTest : BaseTest
         var testname = nameof(TC15_VerifyAutoCompleteFunctionality);
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new AutoCompletePage(driver);
+                var page = new AutoCompletePage(driver, log);
 
                 page.NavigateTo();
 

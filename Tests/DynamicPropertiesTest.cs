@@ -20,9 +20,9 @@ public class DynamicPropertiesTest : BaseTest
         var testname = nameof(TC04_VerifyDynamicButtonStateChanges);
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new DynamicPropertyPage(driver);
+                var page = new DynamicPropertyPage(driver, log);
 
                 page.NavigateTo();
 

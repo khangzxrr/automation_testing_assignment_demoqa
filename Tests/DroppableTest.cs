@@ -18,9 +18,9 @@ public class DroppableTest : BaseTest
         var testname = nameof(TC05_VerifyDragAndDropFunctionality);
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new DroppablePage(driver);
+                var page = new DroppablePage(driver, log);
 
                 page.NavigateTo();
 

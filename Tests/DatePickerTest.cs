@@ -17,9 +17,9 @@ public class DatePickerTest : BaseTest
         var testname = nameof(TC12_VerifyDatePickerSelections);
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new DatePickerPage(driver);
+                var page = new DatePickerPage(driver, log);
 
                 page.NavigateTo();
 

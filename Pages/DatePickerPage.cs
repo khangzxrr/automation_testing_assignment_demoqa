@@ -3,7 +3,7 @@ using OpenQA.Selenium;
 
 public class DatePickerPage : BasePage
 {
-    public DatePickerPage(IWebDriver driver) : base(driver)
+    public DatePickerPage(IWebDriver driver, UnifiedLog log) : base(driver, log)
     {
     }
 

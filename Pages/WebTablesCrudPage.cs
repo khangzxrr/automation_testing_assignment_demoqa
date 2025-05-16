@@ -2,7 +2,7 @@ using OpenQA.Selenium;
 
 public class WebTableCrudPage : BasePage
 {
-    public WebTableCrudPage(IWebDriver driver) : base(driver) { }
+    public WebTableCrudPage(IWebDriver driver, UnifiedLog log) : base(driver, log) { }
 
     private readonly string url = "https://demoqa.com/webtables";
     public void NavigateTo() => driver.Navigate().GoToUrl(url);

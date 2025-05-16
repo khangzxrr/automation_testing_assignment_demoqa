@@ -3,7 +3,7 @@ using SeleniumExtras.WaitHelpers;
 
 public class ModalDialogsPage : BasePage
 {
-    public ModalDialogsPage(IWebDriver driver) : base(driver)
+    public ModalDialogsPage(IWebDriver driver, UnifiedLog log) : base(driver, log)
     {
     }
 

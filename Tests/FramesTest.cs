@@ -19,9 +19,9 @@ public class FramesTest : BaseTest
 
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new FramesPage(driver);
+                var page = new FramesPage(driver, log);
 
                 page.NavigateTo();
 

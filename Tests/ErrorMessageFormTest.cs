@@ -18,9 +18,9 @@ public class ErrorMessageFormTest : BaseTest
 
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new RegistrationFormPage(driver);
+                var page = new RegistrationFormPage(driver, log);
 
                 page.NavigateTo();
 
@@ -51,11 +51,11 @@ public class ErrorMessageFormTest : BaseTest
         var testname = nameof(TC02_ProgressivelyFillRequiredFieldsAndValidateRemainingInvalid);
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
                 driver.Url = "https://demoqa.com/automation-practice-form";
 
-                var page = new RegistrationFormPage(driver);
+                var page = new RegistrationFormPage(driver, log);
 
                 page.NavigateTo();
 

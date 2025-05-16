@@ -3,7 +3,7 @@ using SeleniumExtras.WaitHelpers;
 
 public class BookStorePage : BasePage
 {
-    public BookStorePage(IWebDriver driver) : base(driver)
+    public BookStorePage(IWebDriver driver, UnifiedLog log) : base(driver, log)
     {
     }
 

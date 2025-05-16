@@ -18,9 +18,9 @@ public class BookStoreTest : BaseTest
         var testname = nameof(TC09_VerifyBookStoreLoginSearchAndAddToCollection);
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new BookStorePage(driver);
+                var page = new BookStorePage(driver, log);
 
                 page.NavigateTo();
 

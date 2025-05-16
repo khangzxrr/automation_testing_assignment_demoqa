@@ -19,9 +19,9 @@ public class AccordionTest : BaseTest
 
         PerformTest(
             name,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new AccordionPage(driver);
+                var page = new AccordionPage(driver, log);
 
                 page.NavigateTo();
 

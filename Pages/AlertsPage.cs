@@ -4,7 +4,7 @@ public class AlertsPage : BasePage
 {
     private readonly string url = "https://demoqa.com/alerts";
 
-    public AlertsPage(OpenQA.Selenium.IWebDriver driver) : base(driver)
+    public AlertsPage(OpenQA.Selenium.IWebDriver driver, UnifiedLog log) : base(driver, log)
     {
     }
 

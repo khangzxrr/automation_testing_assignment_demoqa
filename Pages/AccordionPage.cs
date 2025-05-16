@@ -2,8 +2,8 @@ using OpenQA.Selenium;
 
 public class AccordionPage : BasePage
 {
-    public AccordionPage(IWebDriver driver)
-        : base(driver) { }
+    public AccordionPage(IWebDriver driver, UnifiedLog log)
+        : base(driver, log) { }
 
     private readonly string url = "https://demoqa.com/accordian";
 

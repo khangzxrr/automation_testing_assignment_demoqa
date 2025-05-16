@@ -19,9 +19,9 @@ public class ModelDialogsTest : BaseTest
 
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
-                var page = new ModalDialogsPage(driver);
+                var page = new ModalDialogsPage(driver, log);
 
                 page.NavigateTo();
 

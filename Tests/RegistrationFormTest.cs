@@ -37,11 +37,11 @@ public class RegistrationFormTest : BaseTest
 
         PerformTest(
             testname,
-            () =>
+            (UnifiedLog log) =>
             {
                 string imagePath = Directory.GetCurrentDirectory() + "/" + imageName;
 
-                var page = new RegistrationFormPage(driver);
+                var page = new RegistrationFormPage(driver, log);
 
                 page.NavigateTo();
 
