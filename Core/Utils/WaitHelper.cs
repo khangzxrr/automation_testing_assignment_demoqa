@@ -3,12 +3,12 @@ using OpenQA.Selenium.Support.UI;
 
 public static class WaitHelper
 {
-    public static WebDriverWait MakeDriverWait(IWebDriver driver, int timeoutInSeconds = 15)
+    public static WebDriverWait MakeDriverWait(IWebDriver driver, int timeoutInSeconds = 10)
     {
         return new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
     }
 
-    public static IWebElement WaitUntilVisible(IWebDriver driver, By locator, int timeoutInSeconds = 15)
+    public static IWebElement WaitUntilVisible(IWebDriver driver, By locator, int timeoutInSeconds = 10)
     {
         var localWait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
         return localWait.Until(
@@ -16,7 +16,7 @@ public static class WaitHelper
         );
     }
 
-    public static IWebElement WaitUntilExist(IWebDriver driver, By locator, int timeoutInSeconds = 15)
+    public static IWebElement WaitUntilExist(IWebDriver driver, By locator, int timeoutInSeconds = 10)
     {
         var localWait = new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds));
         return localWait.Until(
@@ -24,7 +24,7 @@ public static class WaitHelper
         );
     }
 
-    public static void WaitForPageReady(IWebDriver driver, int timeoutInSeconds = 60)
+    public static void WaitForPageReady(IWebDriver driver, int timeoutInSeconds = 30)
     {
         new WebDriverWait(driver, TimeSpan.FromSeconds(timeoutInSeconds)).Until(d =>
         {
