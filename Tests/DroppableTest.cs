@@ -16,6 +16,7 @@ public class DroppableTest : BaseTest
     public void TC05_VerifyDragAndDropFunctionality()
     {
         var testname = nameof(TC05_VerifyDragAndDropFunctionality);
+
         PerformTest(
             testname,
             (UnifiedLog log) =>
@@ -24,10 +25,10 @@ public class DroppableTest : BaseTest
 
                 page.NavigateTo();
 
-                page.WaitForPageReady();
+                //wait extra for 2s
+                page.WaitForPageReady(2000);
 
                 // --- Step 1: Simple Tab ---
-                page.simpleTab.Click();
 
                 page.PerformSimpleDragAndDrop();
 
