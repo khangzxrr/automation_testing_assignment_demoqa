@@ -20,13 +20,73 @@ public class AccountApiTests
     }
 
     [Fact]
-    public async Task VerifyDeleteUser_ShouldDeleteUserWithExistUser()
+    public async Task VerifyCreateUser_ShouldCreateUserWhichValidUsernameAndPassword()
     {
         var registerModel = new RegisterModel
         {
             UserName = ConfigurationManager.Config.Api.DefaultUsername + Guid.NewGuid(),
             Password = ConfigurationManager.Config.Api.DefaultPassword
         };
+
+        var createUserResponse = await accountService.CreateUser(registerModel);
+
+        var uuid = createUserResponse.Data.UserId;
+
+        Assert.False(string.IsNullOrWhiteSpace(uuid));
+    }
+
+    [Fact]
+    public async Task VerifyGetUser_ShouldReturnExistUser()
+    {
+        var registerModel = RegisterModel.Generate();
+
+        var createUserResponse = await accountService.CreateUser(registerModel);
+
+        var uuid = createUserResponse.Data.UserId;
+
+        Assert.False(string.IsNullOrWhiteSpace(uuid));
+
+        accountService.AddBasicHeader(registerModel.UserName, registerModel.Password);
+
+        var getUserResponse = await accountService.GetUser(uuid);
+
+        Assert.Equal(createUserResponse.Data.UserId, getUserResponse.Data.UserId);
+    }
+
+    [Fact]
+    public async Task VerifyAuthorize_ShouldReturnTrueWhichExistUser()
+    {
+
+        var registerModel = RegisterModel.Generate();
+
+        Console.WriteLine(registerModel.UserName);
+
+        var createUserResponse = await accountService.CreateUser(registerModel);
+
+        var uuid = createUserResponse.Data.UserId;
+
+        Console.WriteLine(uuid);
+
+        Assert.False(string.IsNullOrWhiteSpace(uuid));
+
+        accountService.AddBasicHeader(registerModel.UserName, registerModel.Password);
+
+        var authorizedModel = new AuthorizedModel
+        {
+            UserName = registerModel.UserName,
+            Password = registerModel.Password
+        };
+        var authorized = await accountService.Authorized(authorizedModel);
+
+        Console.WriteLine(authorized.Content);
+
+        Assert.True(authorized.Data);
+    }
+
+    [Fact]
+    public async Task VerifyDeleteUser_ShouldDeleteUserWithExistUser()
+    {
+        var registerModel = RegisterModel.Generate();
 
         var createUserResponse = await accountService.CreateUser(registerModel);
 

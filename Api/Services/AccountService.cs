@@ -12,6 +12,11 @@ public class AccountService : ApiClient
         client.AddDefaultHeader("Authorization", $"Basic {encodeCredential}");
     }
 
+    public async Task<RestResponse<RegisterResponseModel>> GetUser(string uuid)
+    {
+        return await SendRequest<RegisterResponseModel>($"/Account/v1/User/{uuid}", Method.Get);
+    }
+
     public async Task<RestResponse<TokenModel>> GenerateToken(LoginModel login)
     {
         return await SendRequest<TokenModel>("/Account/v1/GenerateToken", Method.Post, login);
