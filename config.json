@@ -14,5 +14,8 @@
   },
   "ExtentReport": {
     "ReportPath": "Reports" 
+  },
+  "Api": {
+    "BaseUrl": "https://demoqa.com"
   }
 }
