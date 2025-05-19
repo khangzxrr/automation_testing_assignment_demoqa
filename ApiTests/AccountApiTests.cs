@@ -1,5 +1,6 @@
 using AccountModel;
 
+[Trait("Category", "API")]
 public class AccountApiTests
 {
     private readonly AccountService accountService = new();
@@ -10,12 +11,15 @@ public class AccountApiTests
         var loginModel = new LoginModel
         {
             UserName = ConfigurationManager.Config.Api.DefaultUsername,
-            Password = ConfigurationManager.Config.Api.DefaultUsername
+            Password = ConfigurationManager.Config.Api.DefaultPassword,
         };
 
         var response = await accountService.GenerateToken(loginModel);
 
         Assert.True(response.IsSuccessful);
+
+        Console.WriteLine(response.Content);
+
         Assert.False(string.IsNullOrWhiteSpace(response.Data?.Token));
     }
 
@@ -25,7 +29,7 @@ public class AccountApiTests
         var registerModel = new RegisterModel
         {
             UserName = ConfigurationManager.Config.Api.DefaultUsername + Guid.NewGuid(),
-            Password = ConfigurationManager.Config.Api.DefaultPassword
+            Password = ConfigurationManager.Config.Api.DefaultPassword,
         };
 
         var createUserResponse = await accountService.CreateUser(registerModel);
@@ -56,7 +60,6 @@ public class AccountApiTests
     [Fact]
     public async Task VerifyAuthorize_ShouldReturnTrueWhichExistUser()
     {
-
         var registerModel = RegisterModel.Generate();
 
         Console.WriteLine(registerModel.UserName);
@@ -71,10 +74,13 @@ public class AccountApiTests
 
         accountService.AddBasicHeader(registerModel.UserName, registerModel.Password);
 
+        //generate token will turn authorize  to true
+        await accountService.GenerateToken(registerModel);
+
         var authorizedModel = new AuthorizedModel
         {
             UserName = registerModel.UserName,
-            Password = registerModel.Password
+            Password = registerModel.Password,
         };
         var authorized = await accountService.Authorized(authorizedModel);
 

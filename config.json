@@ -13,12 +13,12 @@
     "Pool": 3
   },
   "ExtentReport": {
-    "ReportPath": "Reports" 
+    "ReportPath": "Reports"
   },
   "Api": {
     "BaseUrl": "https://demoqa.com",
-    "DefaultPassword": "@VoNgocKhang@@1122",
-    "DefaultUsername": "khangzxrr"
-
+    "DefaultPassword": "@KhangTest@123",
+    "DefaultUsername": "khangtest",
+    "DefaultUserId": "261f5086-0669-4ebf-9697-f668a68a3915"
   }
 }

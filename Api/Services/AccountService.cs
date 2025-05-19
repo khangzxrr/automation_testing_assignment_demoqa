@@ -1,17 +1,8 @@
-using System.Text;
 using AccountModel;
 using RestSharp;
 
 public class AccountService : ApiClient
 {
-    public void AddBasicHeader(string username, string password)
-    {
-        var credential = $"{username}:{password}";
-        var encodeCredential = Convert.ToBase64String(Encoding.UTF8.GetBytes(credential));
-
-        client.AddDefaultHeader("Authorization", $"Basic {encodeCredential}");
-    }
-
     public async Task<RestResponse<RegisterResponseModel>> GetUser(string uuid)
     {
         return await SendRequest<RegisterResponseModel>($"/Account/v1/User/{uuid}", Method.Get);
@@ -36,6 +27,4 @@ public class AccountService : ApiClient
     {
         return await SendRequest<bool>("/Account/v1/Authorized", Method.Post, authorized);
     }
-
-
 }
