@@ -1,10 +1,8 @@
-
 [Collection("TestCollection")]
 public class DroppableTest : BaseTest
 {
-    public DroppableTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
-    {
-    }
+    public DroppableTest(GlobalTestFixture fixture)
+        : base(fixture.ExtentReportFixture) { }
 
     [Fact]
     [Trait("Category", "DemoQA")]
@@ -54,7 +52,10 @@ public class DroppableTest : BaseTest
                 Thread.Sleep(1000);
 
                 Assert.Equal("Dropped!", page.innerDrop.Text);
-                Assert.Equal("Dropped!Dropped!", page.outerDrop.Text.Replace("\r\n","").Replace("\n\n","")); // outer text shouldn't change
+                Assert.Equal(
+                    "Dropped!Dropped!",
+                    page.outerDrop.Text.Replace("\r\n", "").Replace("\n", "")
+                ); // outer text shouldn't change
 
                 page.preventPropogationTab.ScrollIntoView();
 
@@ -62,7 +63,10 @@ public class DroppableTest : BaseTest
                 Thread.Sleep(1000);
 
                 Assert.Equal("Dropped!", page.greedyInner.Text);
-                Assert.Equal("Outer droppableDropped!", page.greedyOuter.Text.Replace("\r\n","").Replace("\n","")); // both should change
+                Assert.Equal(
+                    "Outer droppableDropped!",
+                    page.greedyOuter.Text.Replace("\r\n", "").Replace("\n", "")
+                ); // both should change
 
                 // --- Step 4: Revert/Not Revert Tab ---
                 page.revertTab.Click();
