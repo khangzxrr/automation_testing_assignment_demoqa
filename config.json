@@ -16,6 +16,9 @@
     "ReportPath": "Reports" 
   },
   "Api": {
-    "BaseUrl": "https://demoqa.com"
+    "BaseUrl": "https://demoqa.com",
+    "DefaultPassword": "@VoNgocKhang@@1122",
+    "DefaultUsername": "khangzxrr"
+
   }
 }
