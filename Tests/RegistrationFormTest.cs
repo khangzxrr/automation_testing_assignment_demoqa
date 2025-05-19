@@ -1,10 +1,8 @@
-
 [Collection("TestCollection")]
 public class RegistrationFormTest : BaseTest
 {
-    public RegistrationFormTest(GlobalTestFixture fixture) : base(fixture.ExtentReportFixture)
-    {
-    }
+    public RegistrationFormTest(GlobalTestFixture fixture)
+        : base(fixture.ExtentReportFixture) { }
 
     [Theory]
     [Trait("Category", "DemoQA")]
@@ -85,7 +83,7 @@ public class RegistrationFormTest : BaseTest
 
                 Assert.Contains(FormatDate(dobDay, dobMonth, dobYear), page.GetDoB());
 
-                Assert.Contains(imageName.Split('\\').Last(), page.GetModalImage());
+                Assert.Contains(Path.GetFileName(imagePath), page.GetModalImage());
 
                 Assert.Contains(subjects, page.GetModalSubjects());
 
@@ -94,7 +92,6 @@ public class RegistrationFormTest : BaseTest
                 Assert.Contains(state, page.GetModalStateAndCity());
 
                 Assert.Contains(city, page.GetModalStateAndCity());
-
             }
         );
     }

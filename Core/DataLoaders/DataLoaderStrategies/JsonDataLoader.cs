@@ -19,7 +19,7 @@ public class JsonDataLoader : IDataLoaderStrategy
                     objValue = Path.Combine(objValue.Split('/', '\\'));
                 }
 
-                values.Add(prop.Value.ToString()); // or .ToObject<object>() for raw values
+                values.Add(objValue); // or .ToObject<object>() for raw values
             }
 
             yield return values.ToArray();
