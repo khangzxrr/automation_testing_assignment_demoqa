@@ -3,6 +3,9 @@ using RestSharp;
 
 public class BookService : ApiClient
 {
+    public BookService(RestClient client)
+        : base(client) { }
+
     public async Task<RestResponse<AllBooksModal>> GetAllBooks()
     {
         return await SendRequest<AllBooksModal>("/BookStore/v1/Books", Method.Get);
@@ -29,7 +32,7 @@ public class BookService : ApiClient
         return await SendRequest<BooksResult>(resource, Method.Delete);
     }
 
-    public async Task<RestResponse<UserBooksResult>> DeleteBook(StringObject model)
+    public async Task<RestResponse<UserBooksResult>> DeleteBook(DeleteBookModel model)
     {
         return await SendRequest<UserBooksResult>("/BookStore/v1/Book", Method.Delete, model);
     }

@@ -5,9 +5,9 @@ public class ApiClient
 {
     protected RestClient client;
 
-    public ApiClient()
+    public ApiClient(RestClient client)
     {
-        client = new RestClient(ConfigurationManager.Config.Api.BaseUrl);
+        this.client = client;
     }
 
     public async Task<RestResponse<T>> SendRequest<T>(

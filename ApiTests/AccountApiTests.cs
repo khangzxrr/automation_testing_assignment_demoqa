@@ -3,90 +3,51 @@ using AccountModel;
 [Trait("Category", "API")]
 public class AccountApiTests
 {
-    private readonly AccountService accountService = new();
-
     [Fact]
     public async Task VerifyGenerateToken_ShouldReturnToken()
     {
-        var loginModel = new LoginModel
-        {
-            UserName = ConfigurationManager.Config.Api.DefaultUsername,
-            Password = ConfigurationManager.Config.Api.DefaultPassword,
-        };
+        var apiTestBuilder = new ApiTestBuilder();
+        apiTestBuilder = await apiTestBuilder.CreateRandomUser();
+        apiTestBuilder = await apiTestBuilder.GenerateToken();
 
-        var response = await accountService.GenerateToken(loginModel);
-
-        Assert.True(response.IsSuccessful);
-
-        Console.WriteLine(response.Content);
-
-        Assert.False(string.IsNullOrWhiteSpace(response.Data?.Token));
+        Assert.False(string.IsNullOrWhiteSpace(apiTestBuilder.TokenModel.Token));
     }
 
     [Fact]
     public async Task VerifyCreateUser_ShouldCreateUserWhichValidUsernameAndPassword()
     {
-        var registerModel = new RegisterModel
-        {
-            UserName = ConfigurationManager.Config.Api.DefaultUsername + Guid.NewGuid(),
-            Password = ConfigurationManager.Config.Api.DefaultPassword,
-        };
+        var apiTestBuilder = new ApiTestBuilder();
+        apiTestBuilder = await apiTestBuilder.CreateRandomUser();
 
-        var createUserResponse = await accountService.CreateUser(registerModel);
-
-        var uuid = createUserResponse.Data.UserId;
-
-        Assert.False(string.IsNullOrWhiteSpace(uuid));
+        Assert.False(string.IsNullOrWhiteSpace(apiTestBuilder.UserModel.UserId));
     }
 
     [Fact]
     public async Task VerifyGetUser_ShouldReturnExistUser()
     {
-        var registerModel = RegisterModel.Generate();
+        var apiTestBuilder = new ApiTestBuilder();
+        apiTestBuilder = await apiTestBuilder.CreateRandomUser();
+        apiTestBuilder = await apiTestBuilder.GenerateToken();
+        apiTestBuilder = apiTestBuilder.AddBearerAuthorization();
 
-        var createUserResponse = await accountService.CreateUser(registerModel);
+        var getUserResponse = await apiTestBuilder.GetUser();
 
-        var uuid = createUserResponse.Data.UserId;
+        Assert.NotNull(getUserResponse.Data);
 
-        Assert.False(string.IsNullOrWhiteSpace(uuid));
-
-        accountService.AddBasicHeader(registerModel.UserName, registerModel.Password);
-
-        var getUserResponse = await accountService.GetUser(uuid);
-
-        Assert.Equal(createUserResponse.Data.UserId, getUserResponse.Data.UserId);
+        Assert.Equal(apiTestBuilder.UserModel.UserId, getUserResponse.Data.UserId);
     }
 
     [Fact]
     public async Task VerifyAuthorize_ShouldReturnTrueWhichExistUser()
     {
-        var registerModel = RegisterModel.Generate();
+        var apiTestBuilder = new ApiTestBuilder();
+        apiTestBuilder = await apiTestBuilder.CreateRandomUser();
+        apiTestBuilder = await apiTestBuilder.GenerateToken();
+        apiTestBuilder = apiTestBuilder.AddBearerAuthorization();
 
-        Console.WriteLine(registerModel.UserName);
+        var authorizedResponse = await apiTestBuilder.Authorized();
 
-        var createUserResponse = await accountService.CreateUser(registerModel);
-
-        var uuid = createUserResponse.Data.UserId;
-
-        Console.WriteLine(uuid);
-
-        Assert.False(string.IsNullOrWhiteSpace(uuid));
-
-        accountService.AddBasicHeader(registerModel.UserName, registerModel.Password);
-
-        //generate token will turn authorize  to true
-        await accountService.GenerateToken(registerModel);
-
-        var authorizedModel = new AuthorizedModel
-        {
-            UserName = registerModel.UserName,
-            Password = registerModel.Password,
-        };
-        var authorized = await accountService.Authorized(authorizedModel);
-
-        Console.WriteLine(authorized.Content);
-
-        Assert.True(authorized.Data);
+        Assert.True(authorizedResponse.Data);
     }
 
     [Fact]
@@ -94,25 +55,15 @@ public class AccountApiTests
     {
         var registerModel = RegisterModel.Generate();
 
-        var createUserResponse = await accountService.CreateUser(registerModel);
+        var apiTestBuilder = new ApiTestBuilder();
+        apiTestBuilder = await apiTestBuilder.CreateRandomUser();
+        apiTestBuilder = await apiTestBuilder.GenerateToken();
+        apiTestBuilder = apiTestBuilder.AddBearerAuthorization();
 
-        var uuid = createUserResponse.Data.UserId;
+        await apiTestBuilder.DeleteUser();
 
-        Assert.False(string.IsNullOrWhiteSpace(uuid));
+        var authorizedResponse = await apiTestBuilder.Authorized();
 
-        //authorize
-        accountService.AddBasicHeader(registerModel.UserName, registerModel.Password);
-
-        var deleteUserResponse = await accountService.DeleteUser(uuid);
-
-        var authorizedModel = new AuthorizedModel
-        {
-            UserName = registerModel.UserName,
-            Password = registerModel.Password,
-        };
-        //authorized should return 404 not found user because we deleted it
-        var result = await accountService.Authorized(authorizedModel);
-
-        Assert.True(result.StatusCode == System.Net.HttpStatusCode.NotFound);
+        Assert.True(authorizedResponse.StatusCode == System.Net.HttpStatusCode.NotFound);
     }
 }

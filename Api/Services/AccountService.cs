@@ -3,6 +3,9 @@ using RestSharp;
 
 public class AccountService : ApiClient
 {
+    public AccountService(RestClient client)
+        : base(client) { }
+
     public async Task<RestResponse<RegisterResponseModel>> GetUser(string uuid)
     {
         return await SendRequest<RegisterResponseModel>($"/Account/v1/User/{uuid}", Method.Get);

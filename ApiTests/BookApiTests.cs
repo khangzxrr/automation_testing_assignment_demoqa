@@ -1,118 +1,104 @@
-using AccountModel;
-using BookStoreModel;
-
 [Trait("Category", "API")]
 [Trait("API", "Book")]
-public class BookStoreApiTests : IAsyncLifetime
+public class BookStoreApiTests
 {
-    private readonly AccountService accountService = new();
-    private readonly BookService bookService = new();
-
-    private RegisterModel registerModel = RegisterModel.Generate();
-
-    private string userId;
-
-    public async Task InitializeAsync()
-    {
-        var registedUser = await accountService.CreateUser(registerModel);
-
-        userId = registedUser.Data.UserId;
-
-        bookService.AddBasicHeader(registerModel.UserName, registerModel.Password);
-    }
-
     [Fact]
     public async Task VerifyGetAllBooks_ShouldReturnListOfBooks()
     {
-        var response = await bookService.GetAllBooks();
+        var apiTestBuilder = new ApiTestBuilder();
+        (apiTestBuilder, var bookResponse) = await apiTestBuilder.GetAllBooks();
 
-        Assert.True(response.IsSuccessful);
-        Assert.NotNull(response.Data);
-        Assert.NotEmpty(response.Data.Books);
+        Assert.NotNull(bookResponse.Data);
+        Assert.NotEmpty(bookResponse.Data.Books);
     }
 
     [Fact]
     public async Task VerifyAddBooks_ShouldReturnCollectionOfIsbns()
     {
-        await bookService.DeleteAllBooks(userId);
+        var apiTestBuilder = new ApiTestBuilder();
+        apiTestBuilder = await apiTestBuilder.CreateRandomUser();
+        apiTestBuilder = await apiTestBuilder.GenerateToken();
+        apiTestBuilder = apiTestBuilder.AddBearerAuthorization();
 
-        var addBooks = new AddListOfBooks
-        {
-            UserId = userId,
-            CollectionOfIsbns = new List<CollectionOfIsbn>
-            {
-                new CollectionOfIsbn { Isbn = "9781449331818" },
-            },
-        };
+        (apiTestBuilder, var getAllBooksResponse) = await apiTestBuilder.GetAllBooks();
+        var firstIsbn = getAllBooksResponse.Data.Books.First().Isbn;
 
-        var response = await bookService.AddBooks(addBooks);
+        (apiTestBuilder, var addBookResponse) = await apiTestBuilder.AddBookToCollection(firstIsbn);
 
-        Assert.NotNull(response.Data);
-        Assert.True(response.Data.Books.Where(b => b.Isbn == "9781449331818").Any());
+        Assert.NotNull(addBookResponse.Data);
+        Assert.True(addBookResponse.Data.Books.Where(b => b.Isbn == firstIsbn).Any());
     }
 
     [Fact]
     public async Task VerifyGetBookByIsbn_ShouldReturnBookDetail()
     {
-        var response = await bookService.GetBookByIsbn("9781449331818");
+        var apiTestBuilder = new ApiTestBuilder();
 
-        Assert.True(response.IsSuccessful);
-        Assert.Equal("9781449331818", response.Data?.Isbn);
+        (apiTestBuilder, var getAllBooksResponse) = await apiTestBuilder.GetAllBooks();
+        var firstIsbn = getAllBooksResponse.Data.Books.First().Isbn;
+
+        (apiTestBuilder, var getBookResponse) = await apiTestBuilder.GetBookByIsbn(firstIsbn);
+
+        Assert.NotNull(getBookResponse.Data);
+        Assert.Equal(firstIsbn, getBookResponse.Data.Isbn);
     }
 
     [Fact]
     public async Task VerifyDeleteAllBooks_ShouldSucceed()
     {
-        var response = await bookService.DeleteAllBooks(userId);
+        var apiTestBuilder = new ApiTestBuilder();
+        apiTestBuilder = await apiTestBuilder.CreateRandomUser();
+        apiTestBuilder = await apiTestBuilder.GenerateToken();
+        apiTestBuilder = apiTestBuilder.AddBearerAuthorization();
 
-        Assert.True(response.IsSuccessful);
+        (apiTestBuilder, var getAllBooksResponse) = await apiTestBuilder.GetAllBooks();
+        var firstIsbn = getAllBooksResponse.Data.Books.First().Isbn;
+
+        (apiTestBuilder, var addBookResponse) = await apiTestBuilder.AddBookToCollection(firstIsbn);
+
+        (apiTestBuilder, var deleteBooksResponse) = await apiTestBuilder.DeleteAllBooks();
+
+        Assert.Equal(System.Net.HttpStatusCode.NoContent, deleteBooksResponse.StatusCode);
     }
 
     [Fact]
     public async Task VerifyDeleteBookByIsbn_ShouldSucceed()
     {
-        var addBooks = new AddListOfBooks
-        {
-            UserId = userId,
-            CollectionOfIsbns = new List<CollectionOfIsbn>
-            {
-                new CollectionOfIsbn { Isbn = "9781449331818" },
-            },
-        };
+        var apiTestBuilder = new ApiTestBuilder();
+        apiTestBuilder = await apiTestBuilder.CreateRandomUser();
+        apiTestBuilder = await apiTestBuilder.GenerateToken();
+        apiTestBuilder = apiTestBuilder.AddBearerAuthorization();
 
-        await bookService.AddBooks(addBooks);
+        (apiTestBuilder, var getAllBooksResponse) = await apiTestBuilder.GetAllBooks();
+        var firstIsbn = getAllBooksResponse.Data.Books.First().Isbn;
 
-        var deleteRequest = new StringObject { Isbn = "9781449331818", UserId = userId };
+        (apiTestBuilder, var addBookResponse) = await apiTestBuilder.AddBookToCollection(firstIsbn);
 
-        var response = await bookService.DeleteBook(deleteRequest);
+        (apiTestBuilder, var deleteBookResponse) = await apiTestBuilder.DeleteBook(firstIsbn);
 
-        Assert.True(response.IsSuccessful);
+        Assert.Equal(System.Net.HttpStatusCode.NoContent, deleteBookResponse.StatusCode);
     }
 
     [Fact]
     public async Task VerifyReplaceBook_ShouldUpdateUserBooks()
     {
-        var addBooks = new AddListOfBooks
-        {
-            UserId = userId,
-            CollectionOfIsbns = new List<CollectionOfIsbn>
-            {
-                new CollectionOfIsbn { Isbn = "9781449331818" },
-            },
-        };
+        var apiTestBuilder = new ApiTestBuilder();
+        apiTestBuilder = await apiTestBuilder.CreateRandomUser();
+        apiTestBuilder = await apiTestBuilder.GenerateToken();
+        apiTestBuilder = apiTestBuilder.AddBearerAuthorization();
 
-        await bookService.AddBooks(addBooks);
+        (apiTestBuilder, var getAllBooksResponse) = await apiTestBuilder.GetAllBooks();
 
-        var response = await bookService.ReplaceBook(
-            "9781449331818",
-            new ReplaceIsbn { UserId = userId, Isbn = "9781449365035" }
+        var firstIsbn = getAllBooksResponse.Data.Books.First().Isbn;
+        var lastIsbn = getAllBooksResponse.Data.Books.Last().Isbn;
+
+        (apiTestBuilder, var addBookResponse) = await apiTestBuilder.AddBookToCollection(firstIsbn);
+
+        (apiTestBuilder, var replaceBookResponse) = await apiTestBuilder.ReplaceBook(
+            firstIsbn,
+            lastIsbn
         );
 
-        Assert.True(response.IsSuccessful);
-    }
-
-    public async Task DisposeAsync()
-    {
-        await accountService.DeleteUser(userId);
+        Assert.True(replaceBookResponse.IsSuccessful);
     }
 }
