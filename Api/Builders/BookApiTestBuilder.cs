@@ -18,7 +18,6 @@ public static class BookApiTestBuilder
         RestResponse<AddListOfBookResponseModel> addListBooksResponse
     )> AddBookToCollection(this ApiTestBuilder apiTestBuilder, string isbn)
     {
-        apiTestBuilder.EnsureAuthorization();
 
         var addListBooks = new AddListOfBooks
         {
