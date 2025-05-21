@@ -38,7 +38,7 @@ public class ApiTestBuilder
         return this;
     }
 
-    public async Task<ApiTestBuilder> GenerateToken(LoginModel? loginModel = null)
+    public async Task<(ApiTestBuilder builder, RestResponse<TokenModel> generateTokenResponse)> GenerateToken(LoginModel? loginModel = null)
     {
         if (loginModel == null)
         {
@@ -51,9 +51,13 @@ public class ApiTestBuilder
 
         var response = await accountService.GenerateToken(loginModel);
 
-        TokenModel = response.Data;
+        if (response.Data != null)
+        {
+            TokenModel = response.Data;
+        }
 
-        return this;
+
+        return (this, response);
     }
 
     public void EnsureAuthorization()

@@ -19,21 +19,26 @@ public static class AccountApiTestBuilder
         return apiTestBuilder;
     }
 
-    public static async Task<ApiTestBuilder> CreateUser(
+    public static async Task<(ApiTestBuilder builder, RestResponse<RegisterResponseModel> registerResponseModel)> CreateUser(
         this ApiTestBuilder apiTestBuilder,
         RegisterModel registerModel
     )
     {
         var response = await apiTestBuilder.accountService.CreateUser(registerModel);
 
-        apiTestBuilder.UserModel = new UserModel
+        if (response.Data != null)
         {
-            Password = registerModel.Password,
-            UserId = response.Data.UserId,
-            UserName = registerModel.UserName,
-        };
 
-        return apiTestBuilder;
+            apiTestBuilder.UserModel = new UserModel
+            {
+                Password = registerModel.Password,
+                UserId = response.Data.UserId,
+                UserName = registerModel.UserName,
+            };
+        }
+
+
+        return (apiTestBuilder, response);
     }
 
     public static async Task<RestResponse<RegisterResponseModel>> GetUser(
@@ -46,12 +51,13 @@ public static class AccountApiTestBuilder
         return await apiTestBuilder.accountService.GetUser(uuid ?? apiTestBuilder.UserModel.UserId);
     }
 
+
+
     public static async Task<RestResponse<bool>> Authorized(
         this ApiTestBuilder apiTestBuilder,
         AuthorizedModel? authorizedModel = null
     )
     {
-        apiTestBuilder.EnsureAuthorization();
 
         if (authorizedModel == null)
         {
@@ -70,8 +76,6 @@ public static class AccountApiTestBuilder
         string? uuid = null
     )
     {
-        apiTestBuilder.EnsureAuthorization();
-
         if (uuid == null)
         {
             uuid = apiTestBuilder.UserModel.UserId;
